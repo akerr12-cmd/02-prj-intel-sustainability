@@ -1,1 +1,210 @@
-/* Add your CSS here */
+/* Hero Section Styling */
+.hero {
+  background: linear-gradient(135deg, #001226, #003b7a);
+  padding: 2.5rem 1rem; /* Reduced padding for a smaller header */
+  text-align: center;
+  border-bottom: 4px solid #007bff;
+  color: white;
+  position: relative; /* Needed for absolute positioning of logo */
+}
+.hero-logo {
+  width: 460px; /* Larger logo */
+  margin-bottom: 1rem;
+  filter: brightness(0) invert(1);
+  position: absolute;
+  top: 10.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: block;
+}
+
+/* Make the hero image smaller too */
+.hero-hero img {
+  max-width: 120px; /* Smaller hero image */
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+/* Hero Section Styling */
+header {
+  background: url('img/tech-to-world_AFF.png') center/contain no-repeat;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px #000;
+}
+
+header p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 0 0 6px #000;
+}
+
+/*Chip-Layer Timeline Layout*/
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom, #0f1c2e, #1a2a3f);
+  padding: 3rem 1rem;
+}
+
+section > div {
+  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
+  border: 1px solid #3c4f66;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  width: 90%;
+  max-width: 700px;
+  color: #e0f0ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+section > div:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,255,255,0.3);
+}
+
+/* Card Content Structure */
+section h2 {
+  font-size: 1.5rem;
+  color: #00ffff;
+  margin-bottom: 0.5rem;
+}
+
+section h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c0d0e0;
+}
+
+/* Add Icons or Metrics */
+.metric {
+  display: inline-block;
+  background: #00ffff;
+  color: #0f1c2e;
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+/* Scroll and Hover prompts */
+body > p {
+  text-align: center;
+  font-size: 1rem;
+  color: #88aacc;
+  margin: 2rem 0;
+}
+
+.card {
+  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  color: #e0f0ff;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 30px #00ffff;
+  animation: pulseGlow 1.2s ease-out infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow:
+      0 0 10px #00ffff,
+      0 0 20px #00ffff,
+      0 0 30px #00ffff;
+  }
+  50% {
+    box-shadow:
+      0 0 5px #00ffff,
+      0 0 10px #00ffff,
+      0 0 15px #00ffff;
+  }
+  100% {
+    box-shadow:
+      0 0 10px #00ffff,
+      0 0 20px #00ffff,
+      0 0 30px #00ffff;
+  }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #00ffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ffff;
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.5);
+    opacity: 0.6;
+  }
+}
+@keyframes chargeUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    box-shadow: none;
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 8px #00ffff;
+  }
+}
+
+.card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: none;
+  animation: chargeUp 0.8s ease-out forwards;
+}
+
+
