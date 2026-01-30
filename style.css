@@ -150,194 +150,21 @@ header p {
   text-shadow: 0 0 6px #000;
 }
 
-/*Chip-Layer Timeline Layout*/
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: transparent; /* Make section background transparent */
-  padding: 3rem 1rem;
-}
-
-section > div {
-  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
-  border: 1px solid #3c4f66;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  padding: 2rem;
-  margin: 1.5rem 0;
-  width: 90%;
-  max-width: 700px;
-  color: #e0f0ff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-
-section > div:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(0,255,255,0.3);
-}
-
-/* Card Content Structure */
-section h2 {
-  font-size: 1.5rem;
-  color: #00ffff;
-  margin-bottom: 0.5rem;
-}
-
-section h3 {
-  font-size: 1.2rem;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-}
-
-section p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #c0d0e0;
-}
-
-/* Add Icons or Metrics */
-.metric {
-  display: inline-block;
-  background: #00ffff;
-  color: #0f1c2e;
-  font-weight: bold;
-  padding: 0.3rem 0.6rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-}
-
-/* Scroll and Hover prompts */
-body > p {
-  text-align: center;
-  font-size: 1rem;
-  color: #88aacc;
-  margin: 2rem 0;
-}
-
-.hero {
-  /* Layer a vertical gradient to blend header and body */
-  background:
-    linear-gradient(135deg, #001226 0%, #003b7a 60%, #0f1c2e 100%),
-    linear-gradient(to bottom, rgba(15,28,46,0) 90%, #0a1624 100%);
-  padding: 2.5rem 1rem; /* Reduced padding for a smaller header */
-  text-align: center;
-  color: white;
-  position: relative; /* Needed for absolute positioning of logo */
-}
-
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow:
-    0 0 10px #00ffff,
-    0 0 20px #00ffff,
-    0 0 30px #00ffff;
-  animation: pulseGlow 1.2s ease-out infinite;
-}
-
-@keyframes pulseGlow {
-  0% {
-    box-shadow:
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 30px #00ffff;
-  }
-  50% {
-    box-shadow:
-      0 0 5px #00ffff,
-      0 0 10px #00ffff,
-      0 0 15px #00ffff;
-  }
-  100% {
-    box-shadow:
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 30px #00ffff;
-  }
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: #00ffff;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00ffff;
-  animation: pulseDot 1.5s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(-50%) scale(1.5);
-    opacity: 0.6;
-  }
-}
-@keyframes chargeUp {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateY(20px);
-    box-shadow: none;
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.02) translateY(-4px);
-    box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff;
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    box-shadow: 0 0 8px #00ffff;
-  }
-}
-
-.card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.card.visible {
-  opacity: 1;
-  transform: none;
-  animation: chargeUp 0.8s ease-out forwards;
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-content {
-  opacity: 0;
-  padding: 2rem;
-}
-
-/* Hover transition */
-.card:hover .card-image {
-  opacity: 0;
-}
-
-.card:hover .card-content {
-  opacity: 1;
-}
-
+/* ---------------------------------------
+   TIMELINE SECTION LAYOUT
+----------------------------------------*/
 section {
   position: relative;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Center glowing spine */
+/* Glowing vertical spine */
 section::before {
   content: "";
   position: absolute;
@@ -351,60 +178,117 @@ section::before {
   z-index: -1;
 }
 
-/* Offset cards */
+/* ---------------------------------------
+   CARD BASE STYLE
+----------------------------------------*/
 .card {
   width: 45%;
+  max-width: 700px;
+  height: 320px; /* REQUIRED */
+  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
+  border: 1px solid #3c4f66;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  color: #e0f0ff;
   position: relative;
   margin: 3rem 0;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.card:nth-child(odd)::after {
-  content: "";
+/* Scroll-in activation */
+.card.visible {
+  opacity: 1;
+  transform: none;
+  animation: chargeUp 0.8s ease-out forwards;
+}
+
+/* ---------------------------------------
+   OFFSET LEFT / RIGHT
+----------------------------------------*/
+.card:nth-child(odd) {
+  margin-right: auto;
+}
+
+.card:nth-child(even) {
+  margin-left: auto;
+}
+
+/* ---------------------------------------
+   IMAGE → INFO TRANSITION
+----------------------------------------*/
+.card-image,
+.card-content {
   position: absolute;
-  bottom: 20px; /* lower connection point */
-  right: -40px;
-  width: 40px;
-  height: 2px;
-  background: #00ffff;
-  box-shadow: 0 0 8px #00ffff;
-  transform: rotate(-25deg); /* diagonal upward */
-  transform-origin: left center;
+  inset: 0;
+  transition: opacity 0.5s ease;
 }
 
-.card:nth-child(even)::after {
-  content: "";
-  position: absolute;
-  top: 20px; /* higher connection point */
-  left: -40px;
-  width: 40px;
-  height: 2px;
-  background: #00ffff;
-  box-shadow: 0 0 8px #00ffff;
-  transform: rotate(25deg); /* diagonal downward */
-  transform-origin: right center;
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
+.card-content {
+  opacity: 0;
+  padding: 2rem;
+}
 
-/* Circuit connectors */
+.card:hover .card-image {
+  opacity: 0;
+}
+
+.card:hover .card-content {
+  opacity: 1;
+}
+
+/* ---------------------------------------
+   HOVER GLOW (your original effect)
+----------------------------------------*/
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 30px #00ffff;
+  animation: pulseGlow 1.2s ease-out infinite;
+}
+
+/* ---------------------------------------
+   DIAGONAL CONNECTOR LINES
+----------------------------------------*/
 .card::after {
   content: "";
   position: absolute;
-  top: 50%;
   width: 60px;
   height: 2px;
-  transform: rotate(-35deg);
   background: #00ffff;
   box-shadow: 0 0 8px #00ffff;
 }
 
+/* Left cards: bottom-right → spine */
 .card:nth-child(odd)::after {
-  right: -40px;
+  bottom: 20px;
+  right: -50px;
+  transform: rotate(-30deg);
+  transform-origin: left center;
 }
 
+/* Right cards: top-left → spine */
 .card:nth-child(even)::after {
-  left: -40px;
+  top: 20px;
+  left: -50px;
+  transform: rotate(30deg);
+  transform-origin: right center;
 }
 
+/* ---------------------------------------
+   CONNECTOR NODE (glowing dot)
+----------------------------------------*/
 .card::before {
   content: "";
   position: absolute;
@@ -415,14 +299,52 @@ section::before {
   box-shadow: 0 0 10px #00ffff;
 }
 
+/* Left card node */
 .card:nth-child(odd)::before {
   bottom: 20px;
   right: -10px;
 }
 
+/* Right card node */
 .card:nth-child(even)::before {
   top: 20px;
   left: -10px;
+}
+
+/* ---------------------------------------
+   TEXT STYLES (unchanged)
+----------------------------------------*/
+.card h2 {
+  font-size: 1.5rem;
+  color: #00ffff;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c0d0e0;
+}
+
+/* ---------------------------------------
+   ANIMATIONS (your originals)
+----------------------------------------*/
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+  50% { box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
+  100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+}
+
+@keyframes chargeUp {
+  0% { opacity: 0; transform: scale(0.95) translateY(20px); box-shadow: none; }
+  60% { opacity: 1; transform: scale(1.02) translateY(-4px); box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff; }
+  100% { transform: scale(1) translateY(0); box-shadow: 0 0 8px #00ffff; }
 }
 
 /* Optimizations for smaller screens */
