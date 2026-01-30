@@ -158,7 +158,7 @@ section {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 3rem 1rem;
+  padding: 1rem 1rem; /* Reduced top and bottom padding to move cards up */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -191,12 +191,34 @@ section::before {
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   color: #e0f0ff;
   position: relative;
-  margin: 3rem 0;
+  margin: 1rem 0;
   overflow: hidden;
 
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1;
+}
+
+/* -- PULSING DOT AT TOP CENTER OF CARD --*/
+.pulse-dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  background: #00ffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ffff;
+  animation: pulseDot 1.5s ease-in-out infinite;
+  z-index: 3; /* above image/content */
+}
+
+
+/* Move all cards except the first one up by reducing their top margin */
+.card:not(:first-child) {
+  margin-top: -2.5rem;
 }
 
 /* Scroll-in activation */
@@ -225,6 +247,7 @@ section::before {
   position: absolute;
   inset: 0;
   transition: opacity 0.5s ease;
+  z-index: 2;
 }
 
 .card-image img {
@@ -350,13 +373,74 @@ section::before {
 /* Optimizations for smaller screens */
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
-  .hero::before {
-    opacity: 0.18;
-    background-size: 10vw 10vw;
+
+  /* Stack cards centered */
+  .card {
+    width: 90%;
+    max-width: 380px;
+    height: 260px; /* smaller card height */
+    margin: 2rem auto;
   }
 
-  .hero::after {
+  /* Shrink images */
+  .card-image img {
+    object-fit: cover;
+    opacity: 1;
+  }
+
+  /* Tighten spacing inside cards */
+  .card-content {
+    padding: 1.2rem;
+  }
+
+  .card h2 {
+    font-size: 1.3rem;
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* Remove diagonal connectors */
+  .card::after,
+  .card::before {
+    display: none;
+  }
+
+  /* Replace with a simple vertical glow line */
+  section::before {
+    left: 20px; /* move spine to the left */
+    width: 2px;
     opacity: 0.25;
+  }
+
+  /* Add a small node on each card for continuity */
+  .card::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ffff;
+    display: block;
+  }
+
+  /* Slightly reduce hover glow for mobile */
+  .card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+      0 0 6px #00ffff,
+      0 0 12px #00ffff,
+      0 0 18px #00ffff;
   }
 }
 
