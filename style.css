@@ -1,3 +1,4 @@
+/*--Global Styles and Background--*/
 body {
   background: radial-gradient(circle at 50% 0%, #00101f, #000814 80%);
   position: relative;
@@ -30,20 +31,20 @@ body::before {
   opacity: 0.15;
 }
 
+
 @keyframes meshDrift {
   0% { transform: translate(0, 0); }
   100% { transform: translate(-10vw, -10vw); }
 }
 
 
-/* Hero Section Styling */
+/* Hero Section Styling (Desktop Base) */
 .hero {
   position: relative;
   padding: 4rem 1rem 6rem;
   text-align: center;
   color: white;
 
-  /* Deep tech gradient */
   background: linear-gradient(
     135deg,
     #00101f 0%,
@@ -52,23 +53,12 @@ body::before {
   );
 
   overflow: hidden;
-}
-
-.hero-logo {
-  width: 460px; /* Larger logo */
-  margin-bottom: 1rem;
-  filter: brightness(0) invert(1);
-  position: absolute;
-  top: 10.3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: block;
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 .hero-heroimg {
-  opacity: 0.35; /* soft transparency */
-  mix-blend-mode: screen; /* blends cyan/white into the gradient */
+  opacity: 0.35;
+  mix-blend-mode: screen;
   filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.25));
   max-width: 1500px;
   height: auto;
@@ -76,16 +66,21 @@ body::before {
   transition: opacity 0.3s ease;
 }
 
+.hero-logo {
+  width: 460px;
+  position: absolute;
+  top: 10.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  filter: brightness(0) invert(1);
+}
+
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Responsive circuit mesh */
   background-image:
-    /* vertical lines */
     repeating-linear-gradient(
       90deg,
       rgba(0, 255, 255, 0.18) 0,
@@ -93,7 +88,6 @@ body::before {
       transparent 0.3vw,
       transparent 6vw
     ),
-    /* horizontal lines */
     repeating-linear-gradient(
       0deg,
       rgba(0, 255, 255, 0.18) 0,
@@ -101,10 +95,8 @@ body::before {
       transparent 0.3vw,
       transparent 6vw
     );
-
   mix-blend-mode: screen;
   opacity: 0.25;
-
   animation: meshDrift 40s linear infinite;
 }
 
@@ -112,20 +104,12 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: none;
-
   background-image:
     radial-gradient(circle at 20% 30%, rgba(0,255,255,0.25) 0, transparent 12vw),
     radial-gradient(circle at 75% 60%, rgba(0,255,255,0.22) 0, transparent 14vw),
     radial-gradient(circle at 45% 80%, rgba(0,255,255,0.18) 0, transparent 10vw);
-
   mix-blend-mode: screen;
   opacity: 0.35;
-}
-
-.hero {
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
 
@@ -150,21 +134,19 @@ header p {
   text-shadow: 0 0 6px #000;
 }
 
-/* ---------------------------------------
-   TIMELINE SECTION LAYOUT
-----------------------------------------*/
+/* -- Timeline Section (Desktop Base) --*/
 section {
   position: relative;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 1rem 1rem; /* Reduced top and bottom padding to move cards up */
+  padding: 3rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Glowing vertical spine */
+/* Vertical glowing spine */
 section::before {
   content: "";
   position: absolute;
@@ -178,70 +160,37 @@ section::before {
   z-index: -1;
 }
 
-/* ---------------------------------------
-   CARD BASE STYLE
-----------------------------------------*/
+/* -- Card Styles (Desktop Base) --*/
 .card {
   width: 45%;
   max-width: 700px;
-  height: 320px; /* REQUIRED */
+  height: 320px;
   background: linear-gradient(145deg, #1e2b3c, #2a3c52);
   border: 1px solid #3c4f66;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   color: #e0f0ff;
   position: relative;
-  margin: 1rem 0;
+  margin: 3rem 0;
   overflow: hidden;
 
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 1;
 }
 
-/* -- PULSING DOT AT TOP CENTER OF CARD --*/
-.pulse-dot {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  transform: translateX(-50%);
-  background: #00ffff;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #00ffff;
-  animation: pulseDot 1.5s ease-in-out infinite;
-  z-index: 3; /* above image/content */
-}
-
-
-/* Move all cards except the first one up by reducing their top margin */
-.card:not(:first-child) {
-  margin-top: -2.5rem;
-}
-
-/* Scroll-in activation */
+/* Scroll-in animation */
 .card.visible {
   opacity: 1;
   transform: none;
   animation: chargeUp 0.8s ease-out forwards;
 }
 
-/* ---------------------------------------
-   OFFSET LEFT / RIGHT
-----------------------------------------*/
-.card:nth-child(odd) {
-  margin-right: auto;
-}
+/* Offset left/right */
+.card:nth-child(odd) { margin-right: auto; }
+.card:nth-child(even) { margin-left: auto; }
 
-.card:nth-child(even) {
-  margin-left: auto;
-}
-
-/* ---------------------------------------
-   IMAGE → INFO TRANSITION
-----------------------------------------*/
+/*-- Image --> Info Transition --*/
 .card-image,
 .card-content {
   position: absolute;
@@ -261,29 +210,11 @@ section::before {
   padding: 2rem;
 }
 
-.card:hover .card-image {
-  opacity: 0;
-}
+.card:hover .card-image { opacity: 0; }
+.card:hover .card-content { opacity: 1; }
 
-.card:hover .card-content {
-  opacity: 1;
-}
-
-/* ---------------------------------------
-   HOVER GLOW (your original effect)
-----------------------------------------*/
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow:
-    0 0 10px #00ffff,
-    0 0 20px #00ffff,
-    0 0 30px #00ffff;
-  animation: pulseGlow 1.2s ease-out infinite;
-}
-
-/* ---------------------------------------
-   DIAGONAL CONNECTOR LINES
-----------------------------------------*/
+/*-- Desktop Connectors (Diagonal PCB Traces) --*/
+/* Diagonal line */
 .card::after {
   content: "";
   position: absolute;
@@ -293,7 +224,7 @@ section::before {
   box-shadow: 0 0 8px #00ffff;
 }
 
-/* Left cards: bottom-right → spine */
+/* Left cards */
 .card:nth-child(odd)::after {
   bottom: 20px;
   right: -50px;
@@ -301,7 +232,7 @@ section::before {
   transform-origin: left center;
 }
 
-/* Right cards: top-left → spine */
+/* Right cards */
 .card:nth-child(even)::after {
   top: 20px;
   left: -50px;
@@ -309,9 +240,7 @@ section::before {
   transform-origin: right center;
 }
 
-/* ---------------------------------------
-   CONNECTOR NODE (glowing dot)
-----------------------------------------*/
+/* Glowing node */
 .card::before {
   content: "";
   position: absolute;
@@ -322,104 +251,67 @@ section::before {
   box-shadow: 0 0 10px #00ffff;
 }
 
-/* Left card node */
 .card:nth-child(odd)::before {
   bottom: 20px;
   right: -10px;
 }
 
-/* Right card node */
 .card:nth-child(even)::before {
   top: 20px;
   left: -10px;
 }
 
-/* ---------------------------------------
-   TEXT STYLES (unchanged)
-----------------------------------------*/
-.card h2 {
-  font-size: 1.5rem;
-  color: #00ffff;
-  margin-bottom: 0.5rem;
-}
-
-.card h3 {
-  font-size: 1.2rem;
-  color: #ffffff;
-  margin-bottom: 0.5rem;
-}
-
-.card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #c0d0e0;
-}
-
-/* ---------------------------------------
-   ANIMATIONS (your originals)
-----------------------------------------*/
-@keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
-  50% { box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; }
-  100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
-}
-
-@keyframes chargeUp {
-  0% { opacity: 0; transform: scale(0.95) translateY(20px); box-shadow: none; }
-  60% { opacity: 1; transform: scale(1.02) translateY(-4px); box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff; }
-  100% { transform: scale(1) translateY(0); box-shadow: 0 0 8px #00ffff; }
-}
-
 /* Optimizations for smaller screens */
-/* Mobile Responsiveness */
+
+/* Mobile Layout */
 @media (max-width: 600px) {
 
-  /* Stack cards centered */
+  /* Stack cards centered (Compact Hero and Stacked Cards */
+  @media (max-width: 600px) {
+
+  .hero {
+    padding: 2rem 1rem 3rem;
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  .hero-heroimg {
+    max-width: 90%;
+    opacity: 0.28;
+  }
+
+  .hero-logo {
+    width: 240px;
+    top: 6.5rem;
+  }
+
+  header h1 { font-size: 2rem; }
+  header p { font-size: 1rem; max-width: 90%; }
+
+  .hero::before { opacity: 0.15; background-size: 12vw 12vw; }
+  .hero::after { opacity: 0.2; }
+
+  /* Cards stack centered */
   .card {
     width: 90%;
     max-width: 380px;
-    height: 260px; /* smaller card height */
+    height: 260px;
     margin: 2rem auto;
   }
 
-  /* Shrink images */
-  .card-image img {
-    object-fit: cover;
-    opacity: 1;
-  }
-
-  /* Tighten spacing inside cards */
-  .card-content {
-    padding: 1.2rem;
-  }
-
-  .card h2 {
-    font-size: 1.3rem;
-  }
-
-  .card h3 {
-    font-size: 1.05rem;
-  }
-
-  .card p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
   /* Remove diagonal connectors */
-  .card::after,
-  .card::before {
+  .card::before,
+  .card::after {
     display: none;
   }
 
-  /* Replace with a simple vertical glow line */
+  /* Simple vertical spine */
   section::before {
-    left: 20px; /* move spine to the left */
+    left: 20px;
     width: 2px;
     opacity: 0.25;
   }
 
-  /* Add a small node on each card for continuity */
+  /* Node for each card */
   .card::after {
     content: "";
     position: absolute;
@@ -433,15 +325,58 @@ section::before {
     box-shadow: 0 0 8px #00ffff;
     display: block;
   }
-
-  /* Slightly reduce hover glow for mobile */
-  .card:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow:
-      0 0 6px #00ffff,
-      0 0 12px #00ffff,
-      0 0 18px #00ffff;
-  }
 }
 
+/*-- Tablet Layout (Two-Column Staggered) --*/
+@media (min-width: 600px) and (max-width: 1024px) {
+
+  section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 2rem;
+    max-width: 1000px;
+  }
+
+  .card {
+    width: 100%;
+    height: 280px;
+    margin: 0;
+  }
+
+  .card:nth-child(odd) { margin-top: 2rem; }
+  .card:nth-child(even) { margin-bottom: 2rem; }
+
+  /* Remove diagonal connectors */
+  .card::before,
+  .card::after {
+    display: none;
+  }
+
+  /* Vertical spine */
+  section::before {
+    left: 50%;
+    width: 3px;
+    opacity: 0.25;
+  }
+
+  /* Node for each card */
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    width: 10px;
+    height: 10px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ffff;
+    transform: translateY(-50%);
+    display: block;
+  }
+
+  .card:nth-child(even)::after {
+    left: auto;
+    right: -12px;
+  }
+}
 
