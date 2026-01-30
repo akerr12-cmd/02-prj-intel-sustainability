@@ -1,72 +1,59 @@
 body {
-  background-color: #0a1624;
+  background: radial-gradient(circle at 50% 0%, #00101f, #000814 80%);
   position: relative;
   overflow-x: hidden;
 }
 
-/* PCB trace pattern */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: -1;
 
   background-image:
-    /* vertical traces */
     repeating-linear-gradient(
       90deg,
-      rgba(0, 255, 255, 0.08) 0px,
-      rgba(0, 255, 255, 0.08) 2px,
-      transparent 2px,
-      transparent 70px
+      rgba(0, 255, 255, 0.05) 0,
+      rgba(0, 255, 255, 0.05) 0.2vw,
+      transparent 0.2vw,
+      transparent 8vw
     ),
-    /* horizontal traces */
     repeating-linear-gradient(
       0deg,
-      rgba(0, 255, 255, 0.08) 0px,
-      rgba(0, 255, 255, 0.08) 2px,
-      transparent 2px,
-      transparent 70px
-    ),
-    /* nodes/pads */
-    radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,255,0) 60%) 20px 40px,
-    radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,255,0) 60%) 140px 120px,
-    radial-gradient(circle, rgba(0,255,255,0.15) 0%, rgba(0,255,255,0) 60%) 260px 200px;
+      rgba(0, 255, 255, 0.05) 0,
+      rgba(0, 255, 255, 0.05) 0.2vw,
+      transparent 0.2vw,
+      transparent 8vw
+    );
 
-  background-size:
-    70px 70px,
-    70px 70px,
-    300px 300px,
-    300px 300px,
-    300px 300px;
-
-  opacity: 0.22;
-  z-index: -2;
-  animation: pcbDrift 60s linear infinite;
+  opacity: 0.15;
 }
 
-/* remove spotlight glow entirely */
-body::after {
-  content: none;
-}
-
-/* slow drifting movement */
-@keyframes pcbDrift {
+@keyframes meshDrift {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(-180px, -180px); }
+  100% { transform: translate(-10vw, -10vw); }
 }
+
 
 /* Hero Section Styling */
 .hero {
-  background: linear-gradient 135deg,
-    #001226 0%,
-    #003b7a 60%,
-    #0f1c2e 100%;
-  padding: 2.5rem 1rem; /* Reduced padding for a smaller header */
+  position: relative;
+  padding: 4rem 1rem 6rem;
   text-align: center;
   color: white;
-  position: relative; /* Needed for absolute positioning of logo */
+
+  /* Deep tech gradient */
+  background: linear-gradient(
+    135deg,
+    #00101f 0%,
+    #003b7a 55%,
+    #0f1c2e 100%
+  );
+
+  overflow: hidden;
 }
+
 .hero-logo {
   width: 460px; /* Larger logo */
   margin-bottom: 1rem;
@@ -89,8 +76,60 @@ body::after {
   transition: opacity 0.3s ease;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 
-/* Hero Section Styling */
+  /* Responsive circuit mesh */
+  background-image:
+    /* vertical lines */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 255, 255, 0.18) 0,
+      rgba(0, 255, 255, 0.18) 0.3vw,
+      transparent 0.3vw,
+      transparent 6vw
+    ),
+    /* horizontal lines */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 255, 0.18) 0,
+      rgba(0, 255, 255, 0.18) 0.3vw,
+      transparent 0.3vw,
+      transparent 6vw
+    );
+
+  mix-blend-mode: screen;
+  opacity: 0.25;
+
+  animation: meshDrift 40s linear infinite;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,255,255,0.25) 0, transparent 12vw),
+    radial-gradient(circle at 75% 60%, rgba(0,255,255,0.22) 0, transparent 14vw),
+    radial-gradient(circle at 45% 80%, rgba(0,255,255,0.18) 0, transparent 10vw);
+
+  mix-blend-mode: screen;
+  opacity: 0.35;
+}
+
+.hero {
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+
+/*  Section Styling */
 header {
   color: white;
   padding: 2rem 1rem;
@@ -177,15 +216,15 @@ body > p {
   margin: 2rem 0;
 }
 
-.card {
-  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 700px;
-  color: #e0f0ff;
-  position: relative;
-  transition: transform 0.3s ease;
+.hero {
+  /* Layer a vertical gradient to blend header and body */
+  background:
+    linear-gradient(135deg, #001226 0%, #003b7a 60%, #0f1c2e 100%),
+    linear-gradient(to bottom, rgba(15,28,46,0) 90%, #0a1624 100%);
+  padding: 2.5rem 1rem; /* Reduced padding for a smaller header */
+  text-align: center;
+  color: white;
+  position: relative; /* Needed for absolute positioning of logo */
 }
 
 .card:hover {
@@ -269,6 +308,19 @@ body > p {
   opacity: 1;
   transform: none;
   animation: chargeUp 0.8s ease-out forwards;
+}
+
+/* Optimizations for smaller screens */
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .hero::before {
+    opacity: 0.18;
+    background-size: 10vw 10vw;
+  }
+
+  .hero::after {
+    opacity: 0.25;
+  }
 }
 
 
