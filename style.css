@@ -310,6 +310,121 @@ body > p {
   animation: chargeUp 0.8s ease-out forwards;
 }
 
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  opacity: 0;
+  padding: 2rem;
+}
+
+/* Hover transition */
+.card:hover .card-image {
+  opacity: 0;
+}
+
+.card:hover .card-content {
+  opacity: 1;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Center glowing spine */
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  background: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 12px #00ffff;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* Offset cards */
+.card {
+  width: 45%;
+  position: relative;
+  margin: 3rem 0;
+}
+
+.card:nth-child(odd)::after {
+  content: "";
+  position: absolute;
+  bottom: 20px; /* lower connection point */
+  right: -40px;
+  width: 40px;
+  height: 2px;
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+  transform: rotate(-25deg); /* diagonal upward */
+  transform-origin: left center;
+}
+
+.card:nth-child(even)::after {
+  content: "";
+  position: absolute;
+  top: 20px; /* higher connection point */
+  left: -40px;
+  width: 40px;
+  height: 2px;
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+  transform: rotate(25deg); /* diagonal downward */
+  transform-origin: right center;
+}
+
+
+/* Circuit connectors */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  transform: rotate(-35deg);
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+}
+
+.card:nth-child(odd)::after {
+  right: -40px;
+}
+
+.card:nth-child(even)::after {
+  left: -40px;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #00ffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.card:nth-child(odd)::before {
+  bottom: 20px;
+  right: -10px;
+}
+
+.card:nth-child(even)::before {
+  top: 20px;
+  left: -10px;
+}
+
 /* Optimizations for smaller screens */
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
