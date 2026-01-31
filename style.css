@@ -1,25 +1,25 @@
-/* ===== Modern Minimal Reset ===== */
-
+/* =========================================================
+   MODERN MINIMAL RESET
+========================================================= */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 body {
   line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6,
-p {
-  margin: 0;
-  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: radial-gradient(circle at 50% 0%, #00101f, #000814 80%);
+  position: relative;
+  overflow-x: hidden;
 }
 
 img {
@@ -28,14 +28,8 @@ img {
 }
 
 /* =========================================================
-   GLOBAL BACKGROUND + GRID
+   GLOBAL GRID OVERLAY
 ========================================================= */
-body {
-  background: radial-gradient(circle at 50% 0%, #00101f, #000814 80%);
-  position: relative;
-  overflow-x: hidden;
-}
-
 body::before {
   content: "";
   position: fixed;
@@ -43,25 +37,21 @@ body::before {
   pointer-events: none;
   z-index: -1;
   background-image:
-    repeating-linear-gradient(
-      90deg,
+    repeating-linear-gradient(90deg,
       rgba(0, 255, 255, 0.05) 0,
       rgba(0, 255, 255, 0.05) 0.2vw,
       transparent 0.2vw,
-      transparent 8vw
-    ),
-    repeating-linear-gradient(
-      0deg,
+      transparent 8vw),
+    repeating-linear-gradient(0deg,
       rgba(0, 255, 255, 0.05) 0,
       rgba(0, 255, 255, 0.05) 0.2vw,
       transparent 0.2vw,
-      transparent 8vw
-    );
+      transparent 8vw);
   opacity: 0.15;
 }
 
 /* =========================================================
-   HERO - DESKTOP BASE
+   HERO SECTION
 ========================================================= */
 .hero {
   position: relative;
@@ -74,7 +64,7 @@ body::before {
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 
-/* IMAGE LAYER */
+/* HERO IMAGE */
 .hero-image-layer {
   position: relative;
   z-index: 1;
@@ -83,14 +73,15 @@ body::before {
 .hero-heroimg {
   opacity: 0.35;
   mix-blend-mode: screen;
-  max-width: 1500px;
-  height: auto;
+  max-height: 320px;
+  width: auto;
   margin: 0 auto 0.5rem;
   display: block;
+  object-fit: contain;
   transition: opacity 0.3s ease;
 }
 
-/* CONTENT LAYER */
+/* HERO CONTENT */
 .hero-content-layer {
   position: relative;
   z-index: 2;
@@ -98,12 +89,11 @@ body::before {
 
 .hero-logo {
   position: absolute;
-  top: -18.5rem;
+  top: -10rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  width: auto;
-  max-width: 300px;
+  max-width: 420px;
 }
 
 /* HERO MESH */
@@ -117,27 +107,28 @@ body::before {
 
 .hero::before {
   background-image:
-    repeating-linear-gradient(
-      90deg,
+    repeating-linear-gradient(90deg,
       rgba(0, 255, 255, 0.18) 0,
       rgba(0, 255, 255, 0.18) 0.3vw,
       transparent 0.3vw,
-      transparent 6vw
-    ),
-    repeating-linear-gradient(
-      0deg,
+      transparent 6vw),
+    repeating-linear-gradient(0deg,
       rgba(0, 255, 255, 0.18) 0,
       rgba(0, 255, 255, 0.18) 0.3vw,
       transparent 0.3vw,
-      transparent 6vw
-    );
+      transparent 6vw);
   opacity: 0.25;
   animation: meshDrift 40s linear infinite;
 }
 
 @keyframes meshDrift {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(6vw, 6vw); }
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(6vw, 6vw);
+  }
 }
 
 .hero::after {
@@ -149,7 +140,7 @@ body::before {
 }
 
 /* =========================================================
-   HERO TEXT - DESKTOP
+   HERO TEXT
 ========================================================= */
 header {
   color: white;
@@ -173,7 +164,7 @@ header p {
 }
 
 /* =========================================================
-   TIMELINE - DESKTOP BASE
+   TIMELINE BASE
 ========================================================= */
 section.timeline {
   position: relative;
@@ -201,26 +192,23 @@ section.timeline::before {
 }
 
 /* =========================================================
-   CARDS - DESKTOP
+   CARD BASE
 ========================================================= */
-/* ===== CARD BASE STYLES ===== */
-
 .card {
   width: 45%;
   max-width: 700px;
-  height: 320px;
+  height: auto;
+  /* IMPORTANT: image controls height */
   background: linear-gradient(145deg, #1e2b3c, #2a3c52);
   border-radius: 14px;
   position: relative;
   margin: 3rem 0;
   overflow: hidden;
 
-  /* Scroll-in animation base state */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 
-  /* Neon frame (matches connector glow) */
   border: 2px solid rgba(0, 255, 255, 0.25);
   box-shadow:
     inset 0 0 6px rgba(0, 255, 255, 0.75),
@@ -232,7 +220,7 @@ section.timeline::before {
   animation: neonPulse 3s ease-in-out infinite alternate;
 }
 
-
+/* Neon pulse */
 @keyframes neonPulse {
   0% {
     box-shadow:
@@ -242,6 +230,7 @@ section.timeline::before {
       0 0 20px rgba(0, 255, 255, 0.35),
       0 0 40px rgba(0, 255, 255, 0.18);
   }
+
   100% {
     box-shadow:
       inset 0 0 8px rgba(0, 255, 255, 0.85),
@@ -252,76 +241,76 @@ section.timeline::before {
   }
 }
 
+/* Scroll-in */
 .card.visible {
   opacity: 1;
   transform: translateY(0);
-  animation: chargeUp 0.8s ease-out forwards;
 }
 
-@keyframes chargeUp {
-  0% {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  }
-  100% {
-    box-shadow: 0 4px 24px rgba(0, 255, 255, 0.3);
-  }
+/* =========================================================
+   3D FLIP MODULE — OPTION C
+========================================================= */
+.card {
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
-/* Offset left/right */
-.card:nth-child(odd) { 
-  margin-right: auto;
-  align-self: flex-start;
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  /* grows with image */
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.25, 0.6, 0.3, 1);
 }
 
-.card:nth-child(even) { 
-  margin-left: auto;
-  align-self: flex-end;
+.card:hover .card-inner {
+  transform: rotateY(180deg);
 }
 
-/* Image + content fade */
-.card-image, .card-content { 
-  position: absolute; inset: 0; transition: opacity 0.5s ease; 
-} 
-  .card-image { 
-    opacity: 1; 
-  }
+/* FRONT FACE */
+.card-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  transform: rotateY(0deg);
+  inset: 0;
+  display: flex;
+  backface-visibility: hidden;
+}
 
+
+.card-image-inner {
+  max-width: 100%;
+  height: auto;  /* defines card height */
+}
+
+.card-image-inner img {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+  display: block;
+}
+
+/* BACK FACE */
 .card-content {
-  z-index: 2;
-  opacity: 0;
-  padding: 2rem;
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  height: 100%;
+  /* matches front face */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 2rem;
+  z-index: 3;
 }
 
-.card-content h2 {
-  font-size: 2.5rem;
-  color: #00ffff;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.card-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.card-content p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* ===== SCROLL-IN ANIMATION ===== */
-
-.card.visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* ===== CONNECTOR DOT & LINE (DESKTOP) ===== */
-
+/* =========================================================
+   CONNECTOR DOTS + LINES
+========================================================= */
 .card::before {
   content: "";
   position: absolute;
@@ -329,14 +318,13 @@ section.timeline::before {
   height: 12px;
   background: rgba(0, 255, 255, 0.9);
   border-radius: 50%;
-
   box-shadow:
     0 0 6px rgba(0, 255, 255, 0.75),
     0 0 12px rgba(0, 255, 255, 0.45),
     0 0 20px rgba(0, 255, 255, 0.35),
     0 0 40px rgba(0, 255, 255, 0.18);
-
   animation: connectorPulse 3s ease-in-out infinite alternate;
+  z-index: 10;
 }
 
 .card::after {
@@ -345,14 +333,30 @@ section.timeline::before {
   width: 60px;
   height: 2px;
   background: rgba(0, 255, 255, 0.8);
-
   box-shadow:
     0 0 10px rgba(0, 255, 255, 0.55),
     0 0 20px rgba(0, 255, 255, 0.35),
     0 0 40px rgba(0, 255, 255, 0.18);
+  z-index: 10;
 }
 
-/* ===== CONNECTOR POSITIONING ===== */
+@keyframes connectorPulse {
+  0% {
+    box-shadow:
+      0 0 6px rgba(0, 255, 255, 0.75),
+      0 0 12px rgba(0, 255, 255, 0.45),
+      0 0 20px rgba(0, 255, 255, 0.35),
+      0 0 40px rgba(0, 255, 255, 0.18);
+  }
+
+  100% {
+    box-shadow:
+      0 0 8px rgba(0, 255, 255, 0.85),
+      0 0 16px rgba(0, 255, 255, 0.55),
+      0 0 28px rgba(0, 255, 255, 0.45),
+      0 0 52px rgba(0, 255, 255, 0.28);
+  }
+}
 
 /* Odd cards: bottom-right */
 .card:nth-child(odd)::before {
@@ -378,50 +382,6 @@ section.timeline::before {
   transform: rotate(30deg);
 }
 
-
-/* ===== NEON PULSE ANIMATIONS ===== */
-
-@keyframes neonPulse {
-  0% {
-    box-shadow:
-      inset 0 0 6px rgba(0, 255, 255, 0.75),
-      inset 0 0 12px rgba(0, 255, 255, 0.45),
-      0 0 10px rgba(0, 255, 255, 0.55),
-      0 0 20px rgba(0, 255, 255, 0.35),
-      0 0 40px rgba(0, 255, 255, 0.18);
-  }
-  100% {
-    box-shadow:
-      inset 0 0 8px rgba(0, 255, 255, 0.85),
-      inset 0 0 16px rgba(0, 255, 255, 0.55),
-      0 0 14px rgba(0, 255, 255, 0.65),
-      0 0 28px rgba(0, 255, 255, 0.45),
-      0 0 52px rgba(0, 255, 255, 0.28);
-  }
-}
-
-@keyframes connectorPulse {
-  0% {
-    box-shadow:
-      0 0 6px rgba(0, 255, 255, 0.75),
-      0 0 12px rgba(0, 255, 255, 0.45),
-      0 0 20px rgba(0, 255, 255, 0.35),
-      0 0 40px rgba(0, 255, 255, 0.18);
-  }
-  100% {
-    box-shadow:
-      0 0 8px rgba(0, 255, 255, 0.85),
-      0 0 16px rgba(0, 255, 255, 0.55),
-      0 0 28px rgba(0, 255, 255, 0.45),
-      0 0 52px rgba(0, 255, 255, 0.28);
-  }
-}
-
-.card::before {
-  animation: connectorPulse 3s ease-in-out infinite alternate;
-}
-
-
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -432,114 +392,65 @@ footer {
   font-size: 0.9rem;
 }
 
-footer p {
-  margin: 0;
-}
-
 /* =========================================================
-   MOBILE - DRAMATIC LAYERED HERO
+   MOBILE
 ========================================================= */
-
 @media (max-width: 600px) {
-  /* HERO - MOBILE BASE */
   .hero {
     padding: 1rem 1rem 2.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
   }
 
-  .card::before, .card::after { display: none; }
-
-  /* IMAGE LAYER */
-  .hero-image-layer {
-    position: relative;
-    z-index: 1;
-  }
-
   .hero-heroimg {
     content: url("img/mobile_banner.png");
-    width: 100%;
-    max-width: 480px;
+    max-height: 240px;
     opacity: 0.22;
-    margin: 0 auto;
     transform: translateY(10%);
   }
 
-  /* CONTENT LAYER - DRAMATIC OVERLAP */
   .hero-content-layer {
-    position: relative;
-    z-index: 2;
     margin-top: -35%;
   }
 
-  .hero-logo {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 200px;
-    margin: 0 auto 0.5rem;
-  }
-
   .hero-content-layer h1 {
-    font-size: 1.8rem;
-    line-height: 1.2;
-    margin: 0.25rem 0;
+    font-size: 1.5rem;
+    line-height: 1.8;
   }
 
   .hero-content-layer p {
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
     max-width: 90%;
     margin: 0.5rem auto 0;
   }
 
-  /* Mesh softening */
-  .hero::before { 
-    opacity: 0.12; 
-    background-size: 14vw 14vw; 
-  }
-  
-  .hero::after { 
-    opacity: 0.18; 
+  .hero-logo {
+    position: relative;
+    transform: none;
+    top: auto;
+    left: auto;
+    max-width: 200px;
+    margin: 0 auto 0.5rem;
   }
 
-  /* TIMELINE CARDS */
   .card {
-    width: 90%;
+    width: 100%;
     max-width: 380px;
-    height: 260px;
     margin: 2rem auto;
   }
 
-  .card:nth-child(odd),
-  .card:nth-child(even) {
-    align-self: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Remove diagonal connectors */
-  .card::before {
-    display: none;
-  }
-
+  .card::before,
   .card::after {
     display: none;
   }
 
-  /* Mobile spine */
   section.timeline::before {
     left: 20px;
     width: 2px;
     opacity: 0.25;
   }
 
-  /* Mobile node dots */
   .pulse-dot {
     display: block;
     position: absolute;
@@ -551,43 +462,14 @@ footer p {
     background: #00ffff;
     border-radius: 50%;
     box-shadow: 0 0 8px #00ffff;
-    z-index: 3;
-  }
-
-  .card-content {
-    padding: 1.5rem;
-  }
-
-  .card-content h2 {
-    font-size: 2rem;
-  }
-
-  .card-content h3 {
-    font-size: 1.25rem;
-  }
-
-  .card-content p {
-    font-size: 0.95rem;
-  }
-
-  .card {
-    width: 100%;
-    height: auto;
-  }
-
-  .card::before,
-  .card::after {
-    display: none;
+    z-index: 5;
   }
 }
 
-
-
 /* =========================================================
-   TABLET - TWO COLUMN STAGGERED
+   TABLET
 ========================================================= */
 @media (min-width: 601px) and (max-width: 1024px) {
-
   section.timeline {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -597,34 +479,20 @@ footer p {
 
   .card {
     width: 100%;
-    height: 280px;
     margin: 0;
   }
 
-  .card:nth-child(odd) { 
-    margin-top: 2rem;
-    align-self: auto;
-  }
-  
-  .card:nth-child(even) { 
-    margin-bottom: 2rem;
-    align-self: auto;
-  }
-
-  /* Remove desktop connectors */
   .card::before,
   .card::after {
     display: none;
   }
 
-  /* Tablet spine */
   section.timeline::before {
     left: 50%;
     width: 3px;
     opacity: 0.25;
   }
 
-  /* Tablet node dots */
   .pulse-dot {
     display: block;
     position: absolute;
@@ -635,7 +503,7 @@ footer p {
     border-radius: 50%;
     box-shadow: 0 0 8px #00ffff;
     transform: translateY(-50%);
-    z-index: 3;
+    z-index: 5;
   }
 
   .card:nth-child(odd) .pulse-dot {
@@ -644,25 +512,5 @@ footer p {
 
   .card:nth-child(even) .pulse-dot {
     right: -17px;
-  }
-
-  .card-content {
-    padding: 1.75rem;
-  }
-
-  header h1 {
-    font-size: 2.5rem;
-  }
-
-  header p {
-    font-size: 1.1rem;
-  }
-  .card {
-    width: 100%;
-  }
-
-  .card::before,
-  .card::after {
-    display: none;
   }
 }
