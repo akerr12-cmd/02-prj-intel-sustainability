@@ -85,6 +85,7 @@ body::before {
 .hero-content-layer {
   position: relative;
   z-index: 2;
+  margin-top: -6rem;
 }
 
 .hero-logo {
