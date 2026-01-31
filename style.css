@@ -1,36 +1,6 @@
-/* =========================================================
-   MODERN MINIMAL RESET
-========================================================= */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  background: radial-gradient(circle at 50% 0%, #00101f, #000814 80%);
-  position: relative;
-  overflow-x: hidden;
-}
-
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-/* ------------------------------
-   HERO WRAPPER
---------------------------------*/
+/* ----------------------------------------
+   HERO BASE
+-----------------------------------------*/
 .hero {
   position: relative;
   width: 100%;
@@ -49,34 +19,96 @@ img {
   color: white;
 }
 
-/* ------------------------------
-   OVERSIZED SPARK OUTLINE
-   (Intel-style geometric motif)
---------------------------------*/
-.hero::before {
-  content: "";
+/* ----------------------------------------
+   SPARK BASE STYLE (shared)
+-----------------------------------------*/
+.spark {
   position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-
-  /* Spark shape: simple geometric radiating lines */
-  background:
-    radial-gradient(circle at center,
-      rgba(255,255,255,0.12) 0%,
-      rgba(255,255,255,0.10) 20%,
-      rgba(255,255,255,0.00) 70%
-    );
-
-  mask-image: radial-gradient(circle, black 40%, transparent 70%);
-  opacity: 0.18;
   pointer-events: none;
+  opacity: 0.22;
 }
 
-/* ------------------------------
+.spark div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.35);
+  transform-origin: center bottom;
+  border-radius: 2px;
+}
+
+
+/* 12 rays */
+.spark div:nth-child(1)  { transform: translate(-50%, -100%) rotate(0deg); }
+.spark div:nth-child(2)  { transform: translate(-50%, -100%) rotate(30deg); }
+.spark div:nth-child(3)  { transform: translate(-50%, -100%) rotate(60deg); }
+.spark div:nth-child(4)  { transform: translate(-50%, -100%) rotate(90deg); }
+.spark div:nth-child(5)  { transform: translate(-50%, -100%) rotate(120deg); }
+.spark div:nth-child(6)  { transform: translate(-50%, -100%) rotate(150deg); }
+.spark div:nth-child(7)  { transform: translate(-50%, -100%) rotate(180deg); }
+.spark div:nth-child(8)  { transform: translate(-50%, -100%) rotate(210deg); }
+.spark div:nth-child(9)  { transform: translate(-50%, -100%) rotate(240deg); }
+.spark div:nth-child(10) { transform: translate(-50%, -100%) rotate(270deg); }
+.spark div:nth-child(11) { transform: translate(-50%, -100%) rotate(300deg); }
+.spark div:nth-child(12) { transform: translate(-50%, -100%) rotate(330deg); }
+
+/* ----------------------------------------
+   OUTER SPARK (big corner spark)
+-----------------------------------------*/
+.spark-outer {
+  top: -15%;
+  right: -20%;
+  width: 550px;
+  height: 550px;
+  animation: rotate-cw 180s linear infinite;
+}
+
+
+/* ----------------------------------------
+   INNER SPARK (behind logo + text)
+-----------------------------------------*/
+.spark-inner {
+  position: absolute;
+  top: -40px;       /* moves it upward to the right corner */
+  right: -40px;      /* anchors to the right side */
+  width: 220px;
+  height: 220px;
+  opacity: 0.18;
+  z-index: 0;
+  animation: rotate-ccw 160s linear infinite;
+}
+
+
+
+/* Make sure content sits above inner spark */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ----------------------------------------
+   ROTATION ANIMATION
+   spark is clockwise, inner is counter‑clockwise
+-----------------------------------------*/
+/* Clockwise */
+@keyframes rotate-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Counter‑clockwise */
+@keyframes rotate-ccw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+
+
+/* ----------------------------------------
    CONTENT
---------------------------------*/
+-----------------------------------------*/
 .hero-content {
   position: relative;
   max-width: 600px;
@@ -102,9 +134,9 @@ img {
   opacity: 0.9;
 }
 
-/* ------------------------------
+/* ----------------------------------------
    RESPONSIVE
---------------------------------*/
+-----------------------------------------*/
 @media (max-width: 768px) {
   .hero {
     padding: 4rem 1.5rem;
@@ -118,5 +150,11 @@ img {
   .hero-logo {
     width: 110px;
   }
-}
 
+  .spark {
+    width: 420px;
+    height: 420px;
+    top: -15%;
+    right: -20%;
+  }
+}
