@@ -1,3 +1,4 @@
+
 /* ----------------------------------------
    HERO BASE
 -----------------------------------------*/
@@ -7,103 +8,60 @@
   min-height: 70vh;
   padding: 6rem 2rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
-  background: linear-gradient(
-    135deg,
-    #0068b5 0%,
-    #0a84d0 40%,
-    #4fb3ff 100%
-  );
   overflow: hidden;
   color: white;
 }
 
-/* ----------------------------------------
-   SPARK BASE STYLE (shared)
------------------------------------------*/
-.spark {
+/* Move gradient to ::before pseudo-element */
+.hero::before {
+  content: '';
   position: absolute;
-  pointer-events: none;
-  opacity: 0.22;
-}
-
-.spark div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 240px;
-  background: rgba(255, 255, 255, 0.35);
-  transform-origin: center bottom;
-  border-radius: 2px;
-}
-
-
-/* 12 rays */
-.spark div:nth-child(1)  { transform: translate(-50%, -100%) rotate(0deg); }
-.spark div:nth-child(2)  { transform: translate(-50%, -100%) rotate(30deg); }
-.spark div:nth-child(3)  { transform: translate(-50%, -100%) rotate(60deg); }
-.spark div:nth-child(4)  { transform: translate(-50%, -100%) rotate(90deg); }
-.spark div:nth-child(5)  { transform: translate(-50%, -100%) rotate(120deg); }
-.spark div:nth-child(6)  { transform: translate(-50%, -100%) rotate(150deg); }
-.spark div:nth-child(7)  { transform: translate(-50%, -100%) rotate(180deg); }
-.spark div:nth-child(8)  { transform: translate(-50%, -100%) rotate(210deg); }
-.spark div:nth-child(9)  { transform: translate(-50%, -100%) rotate(240deg); }
-.spark div:nth-child(10) { transform: translate(-50%, -100%) rotate(270deg); }
-.spark div:nth-child(11) { transform: translate(-50%, -100%) rotate(300deg); }
-.spark div:nth-child(12) { transform: translate(-50%, -100%) rotate(330deg); }
-
-/* ----------------------------------------
-   OUTER SPARK (big corner spark)
------------------------------------------*/
-.spark-outer {
-  top: -15%;
-  right: -20%;
-  width: 550px;
-  height: 550px;
-  animation: rotate-cw 180s linear infinite;
-}
-
-
-/* ----------------------------------------
-   INNER SPARK (behind logo + text)
------------------------------------------*/
-.spark-inner {
-  position: absolute;
-  top: -40px;       /* moves it upward to the right corner */
-  right: -40px;      /* anchors to the right side */
-  width: 220px;
-  height: 220px;
-  opacity: 0.18;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    #0072CE 0%,
+    #127CC1 40%,
+    #4FB3FF 100%
+  );
   z-index: 0;
-  animation: rotate-ccw 160s linear infinite;
-}
-
-
-
-/* Make sure content sits above inner spark */
-.hero-content {
-  position: relative;
-  z-index: 2;
 }
 
 /* ----------------------------------------
-   ROTATION ANIMATION
-   spark is clockwise, inner is counter‑clockwise
+   MICRO-PROCESSOR CIRCUIT TEXTURE
 -----------------------------------------*/
-/* Clockwise */
-@keyframes rotate-cw {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+.circuit-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1; /* Sits above gradient, below content */
 
-/* Counter‑clockwise */
-@keyframes rotate-ccw {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(-360deg); }
-}
+  opacity: 0.22;
 
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,0.12) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.12) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle 3px,
+      rgba(255,255,255,0.18) 40%,
+      transparent 45%
+    );
+
+  background-size:
+    90px 90px,
+    90px 90px,
+    180px 180px;
+
+  transform: rotate(2deg);
+}
 
 
 /* ----------------------------------------
@@ -111,8 +69,8 @@
 -----------------------------------------*/
 .hero-content {
   position: relative;
-  max-width: 600px;
   z-index: 2;
+  max-width: 600px;
 }
 
 .hero-logo {
@@ -149,12 +107,5 @@
 
   .hero-logo {
     width: 110px;
-  }
-
-  .spark {
-    width: 420px;
-    height: 420px;
-    top: -15%;
-    right: -20%;
   }
 }
