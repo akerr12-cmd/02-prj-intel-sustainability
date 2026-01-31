@@ -28,586 +28,95 @@ img {
   max-width: 100%;
 }
 
-:root {
-  --trace-soft: rgba(0, 255, 255, 0.10);
-  --trace-strong: rgba(0, 255, 255, 0.18);
-  --node-color: rgba(0, 255, 255, 0.35);
-
-  --bg-base: #02030a;
-
-  --font-heading: "roboto", sans-serif;
-  --font-paragraph: "neo-sans", sans-serif;
-}
-
-
-/* Apply font-heading to all heading tags */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-}
-
-p, li, span, a {
-  font-family: var(--font-paragraph);
-}
-
-h1 {
-  color: #00ffff;
-}
-
-
-
-
-/* =========================================================
-   GLOBAL GRID OVERLAY
-========================================================= */
-body {
-  background: radial-gradient(circle at top, #05091a 0, #02030a 45%, #000 100%);
-  color: #f5f7ff;
-}
-
-body::before {
-  background-image:
-    linear-gradient(to top, transparent 70%, rgba(0,0,0,0.45) 100%),
-
-    /* Circuit traces */
-    linear-gradient(135deg, transparent 35%, var(--trace-soft) 40%, transparent 45%),
-    linear-gradient(225deg, transparent 55%, var(--trace-soft) 60%, transparent 65%),
-    linear-gradient(160deg, transparent 20%, var(--trace-strong) 25%, transparent 30%),
-    linear-gradient(200deg, transparent 70%, var(--trace-strong) 75%, transparent 80%);
-}
-
-body::before,
-.hero::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -3;
-
-  background-image:
-    /* Long diagonal traces */
-    linear-gradient(
-      135deg,
-      transparent 0%,
-      transparent 35%,
-      var(--trace-soft) 40%,
-      transparent 45%,
-      transparent 100%
-    ),
-    linear-gradient(
-      225deg,
-      transparent 0%,
-      transparent 55%,
-      var(--trace-soft) 60%,
-      transparent 65%,
-      transparent 100%
-    ),
-
-    /* Shorter angled traces */
-    linear-gradient(
-      160deg,
-      transparent 0%,
-      transparent 20%,
-      var(--trace-strong) 25%,
-      transparent 30%,
-      transparent 100%
-    ),
-    linear-gradient(
-      200deg,
-      transparent 0%,
-      transparent 70%,
-      var(--trace-strong) 75%,
-      transparent 80%,
-      transparent 100%
-    );
-
-  background-size:
-    220% 220%,
-    220% 220%,
-    180% 180%,
-    180% 180%;
-
-  opacity: 0.35;
-}
-
-/* Animation of traveling & sparkling nodes */
-
-body::after,
-.hero::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-
-  background-image:
-    radial-gradient(circle at 18% 32%, var(--node-color) 0, transparent 7vw),
-    radial-gradient(circle at 72% 58%, var(--node-color) 0, transparent 9vw),
-    radial-gradient(circle at 40% 78%, var(--node-color) 0, transparent 6vw);
-
-  animation:
-    nodeTravel 14s linear infinite,
-    nodeSpark 6s ease-in-out infinite;
-  opacity: 0.35;
-}
-
-/* Traveling Animation */
-@keyframes nodeTravel {
-  0% {
-    transform: translateX(-10vw);
-    opacity: 0.15;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateX(10vw);
-    opacity: 0.15;
-  }
-}
-/* Sparkling Animation */
-@keyframes nodeSpark {
-  0%, 100% { filter: brightness(1); }
-  45%      { filter: brightness(1.3); }
-  50%      { filter: brightness(0.8); }
-  55%      { filter: brightness(1.4); }
-}
-
-
-/* =========================================================
-   HERO SECTION
-========================================================= */
+/* ------------------------------
+   HERO WRAPPER
+--------------------------------*/
 .hero {
   position: relative;
-  padding: 1rem 1rem 3rem;
-  text-align: center;
-  color: white;
-  background: linear-gradient(135deg, #00101f 0%, #003b7a 55%, #0f1c2e 100%);
+  width: 100%;
+  min-height: 70vh;
+  padding: 6rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: linear-gradient(
+    135deg,
+    #0068b5 0%,
+    #0a84d0 40%,
+    #4fb3ff 100%
+  );
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  color: white;
 }
 
-/* HERO IMAGE */
-.hero-image-layer {
+/* ------------------------------
+   OVERSIZED SPARK OUTLINE
+   (Intel-style geometric motif)
+--------------------------------*/
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+
+  /* Spark shape: simple geometric radiating lines */
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.12) 0%,
+      rgba(255,255,255,0.10) 20%,
+      rgba(255,255,255,0.00) 70%
+    );
+
+  mask-image: radial-gradient(circle, black 40%, transparent 70%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* ------------------------------
+   CONTENT
+--------------------------------*/
+.hero-content {
   position: relative;
-  z-index: 1;
-}
-
-.hero-heroimg {
-  opacity: 0.35;
-  mix-blend-mode: screen;
-  max-height: 320px;
-  width: auto;
-  margin: 0 auto 0.5rem;
-  display: block;
-  object-fit: contain;
-  transition: opacity 0.3s ease;
-  mask-image: radial-gradient( ellipse at center, black 40%, transparent 100% ); 
-  -webkit-mask-image: radial-gradient( ellipse at center, black 40%, transparent 100% );
-}
-
-/* HERO CONTENT */
-.hero-content-layer {
-  position: relative;
+  max-width: 600px;
   z-index: 2;
-  margin-top: -6rem;
 }
 
 .hero-logo {
-  position: absolute;
-  top: -10rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  max-width: 420px;
+  width: 140px;
+  margin-bottom: 2rem;
 }
 
-/* HERO MESH */
-
-@keyframes meshDrift {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(6vw, 6vw);
-  }
-}
-
-.hero::after {
-  background-image:
-    /* Fade bottom of hero into body */
-    linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.45) 100%),
-
-    /* Traveling + sparkling nodes */
-    radial-gradient(circle at 18% 32%, var(--node-color) 0, transparent 7vw),
-    radial-gradient(circle at 72% 58%, var(--node-color) 0, transparent 9vw),
-    radial-gradient(circle at 40% 78%, var(--node-color) 0, transparent 6vw);
-}
-
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
-header {
-  color: white;
-  padding: 2rem 1rem;
-  text-align: center;
-}
-
-header h1 {
+.hero-title {
   font-size: 3rem;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 10px #000;
   font-weight: 700;
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
 }
 
-header p {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto;
-  text-shadow: 0 0 6px #000;
-  line-height: 1.6;
+.hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  max-width: 480px;
+  opacity: 0.9;
 }
 
-/* Center bar (timeline) */
-section.timeline {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 3rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Vertical glowing spine */
-section.timeline::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 4px;
-  background: rgba(0, 255, 255, 0.4);
-  box-shadow: 0 0 12px #00ffff;
-  transform: translateX(-50%);
-  z-index: 0;
-}
-
-/* =========================================================
-   CARD BASE
-========================================================= */
-.card {
-  width: 45%;
-  max-width: 700px;
-  height: auto;
-  /* IMPORTANT: image controls height */
-  background: linear-gradient(145deg, #1e2b3c, #2a3c52);
-  border-radius: 14px;
-  position: relative;
-  margin: 3rem 0;
-  overflow: hidden;
-
-  opacity: 0;
-  transform: translateY(20px); /* only vertical movement here */
-  transition: opacity 0.3s ease, transform 0.3s ease;
-
-  border: 2px solid rgba(0, 255, 255, 0.25);
-  box-shadow:
-    inset 0 0 6px rgba(0, 255, 255, 0.75),
-    inset 0 0 12px rgba(0, 255, 255, 0.45),
-    0 0 10px rgba(0, 255, 255, 0.55),
-    0 0 20px rgba(0, 255, 255, 0.35),
-    0 0 40px rgba(0, 255, 255, 0.18);
-
-  animation: neonPulse 3s ease-in-out infinite alternate;
-}
-
-.card.visible {
-  opacity: 1;
-  transform: translateY(0); /* returns to normal position */
-}
-
-/* Odd cards --> left side */
-.card:nth-child(odd) {
-  margin-left: 0;
-  margin-right: auto;
-  transform: translate(-3rem, 20px); /* X, Y */
-}
-
-.card.visible:nth-child(odd) {
-  transform: translate(-3rem, 0); /* X stays, Y animates */
-}
-
-/* Even cards --> right side */
-.card:nth-child(even) {
-  margin-left: auto;
-  margin-right: 0;
-  transform: translate(3rem, 20px); /* X, Y */
-}
-
-.card.visible:nth-child(even) { 
-  transform: translate(3rem, 0); 
-}
-
-.card:not(:first-child) {
-  margin-top: -6rem; /* moves all but the first card up on the page */
-}
-
-
-
-/* Neon pulse */
-@keyframes neonPulse {
-  0% {
-    box-shadow:
-      inset 0 0 6px rgba(0, 255, 255, 0.75),
-      inset 0 0 12px rgba(0, 255, 255, 0.45),
-      0 0 10px rgba(0, 255, 255, 0.55),
-      0 0 20px rgba(0, 255, 255, 0.35),
-      0 0 40px rgba(0, 255, 255, 0.18);
-  }
-
-  100% {
-    box-shadow:
-      inset 0 0 8px rgba(0, 255, 255, 0.85),
-      inset 0 0 16px rgba(0, 255, 255, 0.55),
-      0 0 14px rgba(0, 255, 255, 0.65),
-      0 0 28px rgba(0, 255, 255, 0.45),
-      0 0 52px rgba(0, 255, 255, 0.28);
-  }
-}
-
-/* Scroll-in */
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================================================
-   3D FLIP MODULE — OPTION C
-========================================================= */
-.card {
-  perspective: 1200px;
-  transform-style: preserve-3d;
-}
-
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: auto;
-  /* grows with image */
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.25, 0.6, 0.3, 1);
-}
-
-.card:hover .card-inner {
-  transform: rotateY(180deg);
-}
-
-/* FRONT FACE */
-.card-image {
-  position: relative;
-  width: 100%;
-  height: auto;
-  transform: rotateY(0deg);
-  inset: 0;
-  display: flex;
-  backface-visibility: hidden;
-}
-
-
-.card-image-inner {
-  max-width: 100%;
-  height: auto;  /* defines card height */
-}
-
-.card-image-inner img {
-  width: 100%;
-  height: auto;
-  max-height: 320px;
-  object-fit: contain;
-  display: block;
-}
-
-/* BACK FACE */
-.card-content {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  transform: rotateY(180deg);
-  height: 100%;
-  /* matches front face */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem;
-  z-index: 3;
-}
-
-.card-content h2 {
-  margin-bottom: 0.25rem; /* tighten */
-  margin-top: 4px;
-  font-size: 3rem;
-  font-weight: 600;
-  color: #00ffff;
-}
-
-.card-content h3 {
-  margin-top: 0.25rem; /* tighten */
-  margin-bottom: 4px;
-  font-size: 2rem;
-  font-weight: 500;
-  color: #dffbff;
-}
-
-.card-back p {
-  margin-top: 0.25rem; /* or 0 if you want it snug */
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-footer {
-  text-align: center;
-  padding: 2rem 1rem 3rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-@media (max-width: 600px) {
+/* ------------------------------
+   RESPONSIVE
+--------------------------------*/
+@media (max-width: 768px) {
   .hero {
-    padding: 1rem 1rem 2.5rem;
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    padding: 4rem 1.5rem;
+    min-height: 60vh;
   }
 
-  .hero-heroimg {
-    content: url("img/mobile_banner.png");
-    max-height: 240px;
-    opacity: 0.22;
-    transform: translateY(10%);
-  }
-
-  .hero-content-layer {
-    margin-top: -35%;
-  }
-
-  .hero-content-layer h1 {
-    font-size: 1.5rem;
-    line-height: 1.8;
-  }
-
-  .hero-content-layer p {
-    font-size: 1rem !important;
-    line-height: 1.4 !important;
-    max-width: 90%;
-    margin: 0.5rem auto 0;
+  .hero-title {
+    font-size: 2.2rem;
   }
 
   .hero-logo {
-    position: relative;
-    transform: none;
-    top: auto;
-    left: auto;
-    max-width: 200px;
-    margin: 0 auto 0.5rem;
-  }
-
-  .card,
-  .card.visible,
-  .card:nth-child(odd),
-  .card:nth-child(even),
-  .card.visible:nth-child(odd),
-  .card.visible:nth-child(even) {
-    transform: none;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 380px;
-    margin: 2rem auto;
-  }
-
-  .card::before,
-  .card::after {
-    display: none;
-  }
-
-  section.timeline::before {
-    left: 20px;
-    width: 2px;
-    opacity: 0.25;
-  }
-
-  .pulse-dot {
-    display: block;
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 10px;
-    height: 10px;
-    background: #00ffff;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ffff;
-    z-index: 5;
+    width: 110px;
   }
 }
 
-/* =========================================================
-   TABLET
-========================================================= */
-@media (min-width: 601px) and (max-width: 1024px) {
-  section.timeline {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem 2rem;
-    max-width: 1000px;
-  }
-
-  .card {
-    width: 100%;
-    margin: 0;
-  }
-
-  .card::before,
-  .card::after {
-    display: none;
-  }
-
-  section.timeline::before {
-    left: 50%;
-    width: 3px;
-    opacity: 0.25;
-  }
-
-  .pulse-dot {
-    display: block;
-    position: absolute;
-    top: 50%;
-    width: 10px;
-    height: 10px;
-    background: #00ffff;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ffff;
-    transform: translateY(-50%);
-    z-index: 5;
-  }
-
-  .card:nth-child(odd) .pulse-dot {
-    left: -17px;
-  }
-
-  .card:nth-child(even) .pulse-dot {
-    right: -17px;
-  }
-}
