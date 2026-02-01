@@ -1,27 +1,23 @@
-/* ----------------------------------------
-   RESET
------------------------------------------*/
-*,
-*::before,
-*::after {
+/* ===========================
+   GLOBAL RESET + BASE
+=========================== */
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: "intel-clear", sans-serif;
-  background: #ffffff;
-  color: #111;
-  line-height: 1.5;
+  background: #f5f7fa;
+  color: #0a2a66;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* ----------------------------------------
-   HERO
+   HERO BASE
 -----------------------------------------*/
 .hero {
   position: relative;
@@ -31,22 +27,50 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  background: linear-gradient(135deg, #0068b5 0%, #0f6fb8 40%, #3aa0e6 100%);
+  background: linear-gradient(
+    135deg,
+    #0068b5 0%,
+    #0f6fb8 40%,
+    #3aa0e6 100%
+  );
   overflow: hidden;
   color: white;
 }
 
+/* Micro-trace accent line */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 102, 255, 0) 0%,
+    rgba(0, 102, 255, 0.6) 50%,
+    rgba(0, 102, 255, 0) 100%
+  );
+  opacity: 0.7;
+}
+
+/* ----------------------------------------
+   CURVED SEMICONDUCTOR TRACE OVERLAY
+-----------------------------------------*/
 .circuit-overlay {
   position: absolute;
   inset: 0;
-  background-image: url("curved-traces.svg");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.5;
   pointer-events: none;
   z-index: 1;
+  opacity: 0.50;
+  background-image: url(curved-traces.svg);
+  background-size: cover;
+  background-position: center;
 }
 
+/* ----------------------------------------
+   HERO CONTENT
+-----------------------------------------*/
 .hero-content {
   position: relative;
   z-index: 2;
@@ -61,8 +85,8 @@ body {
 .hero-title {
   font-size: 3.4rem;
   font-weight: 700;
+  margin: 0 0 0.75rem 0;
   line-height: 1.1;
-  margin-bottom: 0.75rem;
 }
 
 .hero-subtitle {
@@ -72,131 +96,251 @@ body {
   opacity: 0.9;
 }
 
-/* ----------------------------------------
-   BODY SECTIONS
------------------------------------------*/
-.body-section {
+/* ===========================
+   TIMELINE CONTROLS (ARROWS)
+=========================== */
+
+.timeline-controls {
   position: relative;
-  padding: 4rem 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  margin-top: 2rem;
 }
 
-.body-section::before {
+.timeline-btn {
+  background: white;
+  border: 1px solid #dce6ff;
+  color: #0043ce;
+  font-size: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 40, 120, 0.10);
+  transition: all 0.3s ease;
+}
+
+.timeline-btn:hover {
+  background: #e8f0ff;
+  box-shadow: 0 12px 24px rgba(0, 40, 120, 0.18);
+}
+
+/* ===========================
+   TIMELINE WRAPPER
+=========================== */
+
+.timeline {
+  display: flex;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 3px;
+  width: 80px;
+  background: #0068b5;
+  border-radius: 2px;
+  transition: transform 0.4s ease;
+}
+
+
+/* Top fade shadow */
+.timeline::before {
   content: "";
   position: absolute;
   top: -40px;
   left: 0;
   right: 0;
   height: 40px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), transparent);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.08), transparent);
   pointer-events: none;
 }
 
-/* ----------------------------------------
-   SCROLL ANIMATIONS
------------------------------------------*/
-.card {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+.timeline::-webkit-scrollbar {
+  height: 10px;
 }
 
-.card.visible {
+.timeline::-webkit-scrollbar-thumb {
+  background: #b9c7e8;
+  border-radius: 10px;
+}
+
+.timeline::-webkit-scrollbar-track {
+  background: #e4e9f5;
+}
+
+/* ===========================
+   CARD SECTIONS
+=========================== */
+
+.cards-section {
+  flex: 0 0 320px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  position: relative;
+}
+
+/* Reveal when visible */
+.cards-section.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.flip-card {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  perspective: 1200px;
-  aspect-ratio: 16 / 9;
-  position: relative;
-}
-
-.flip-card-inner {
-  position: absolute;
-  inset: 0;
-  transition: transform 0.9s cubic-bezier(.25,.8,.25,1);
-  transform-style: preserve-3d;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow:
-    0 4px 12px rgba(0,0,0,0.06),
-    0 1px 3px rgba(0,0,0,0.04);
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* FRONT + BACK */
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* LAYERING FIX */
-
-.flip-card-back {
-  transform: rotateY(180deg);
-  background: white;
-  color: #111;
-  padding: 2rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* FRONT IMAGE */
-.flip-card-front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* MICRO-TRACE ACCENT */
-.flip-card-back::after {
+/* Ambient glow behind card */
+.cards-section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("micro-trace-accent.svg");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.08;
-  pointer-events: none;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 102, 255, 0.18) 0%,
+    rgba(0, 102, 255, 0) 70%
+  );
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  filter: blur(20px);
+  z-index: -1;
 }
 
+.cards-section:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
 
+/* ===========================
+   TRUE 3D FLIP CARD
+=========================== */
 
+.flip-card {
+  perspective: 1200px;
+  width: 100%;
+  height: 420px;
+  position: relative;
+}
 
-/* ----------------------------------------
-   RESPONSIVE
------------------------------------------*/
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-card:hover .flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* FRONT & BACK FACES */
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #dce6ff;
+  box-shadow: 0 8px 20px rgba(0, 40, 120, 0.12);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* FRONT CONTENT */
+
+.flip-front img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.flip-front h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0043ce;
+  margin-bottom: 0.3rem;
+}
+
+.flip-front h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0a2a66;
+  margin-bottom: 1rem;
+}
+
+/* BACK FACE */
+
+.flip-back {
+  background: #f0f5ff;
+  transform: rotateY(180deg);
+  justify-content: center;
+  text-align: center;
+}
+
+.flip-back p {
+  font-size: 1.05rem;
+  color: #0a2a66;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+/* ===========================
+   MOBILE STACKING
+=========================== */
+
 @media (max-width: 768px) {
-  .hero {
-    padding: 4rem 1.5rem;
-    min-height: 60vh;
+  .timeline {
+    flex-direction: column;
+    overflow-x: visible;
   }
 
-  .hero-title {
-    font-size: 2.2rem;
+  .cards-section {
+    flex: 1 1 auto;
+    width: 100%;
   }
 
-  .hero-logo {
-    width: 110px;
+  .timeline-controls {
+    display: none; /* hide arrows on mobile */
   }
 }
 
-/* ----------------------------------------
+/* ===========================
    FOOTER
------------------------------------------*/
+=========================== */
+
 .footer {
   text-align: center;
   padding: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: #0a2a66;
   opacity: 0.7;
 }
