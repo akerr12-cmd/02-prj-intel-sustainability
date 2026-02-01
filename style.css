@@ -117,7 +117,7 @@ body {
 .timeline-btn:focus { outline: none; box-shadow: 0 0 0 6px var(--focus-ring); }
 
 /* ===========================
-   TIMELINE WRAPPER
+   TIMELINE WRAPPER (NO INDICATOR)
 =========================== */
 
 .timeline {
@@ -131,6 +131,7 @@ body {
   position: relative;
 }
 
+/* Top fade shadow */
 .timeline::before {
   content: "";
   position: absolute;
@@ -142,21 +143,9 @@ body {
   pointer-events: none;
 }
 
-.timeline::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  height: var(--indicator-width);
-  width: var(--indicator-width);
-  background: var(--accent);
-  border-radius: 2px;
-  transform: translateX(var(--indicator-x, 0));
-  transition: transform 0.12s linear;
-  pointer-events: none;
-  z-index: 3;
-}
+/* Remove the moving indicator pseudo-element entirely */
 
+/* Styled native scrollbar (keeps the normal bar) */
 .timeline::-webkit-scrollbar { height: 10px; }
 .timeline::-webkit-scrollbar-thumb { background: #b9c7e8; border-radius: 10px; }
 .timeline::-webkit-scrollbar-track { background: #e4e9f5; }
@@ -284,7 +273,6 @@ body {
 
 /* ===========================
    VARIANT A: INTEL POLISHED LIFT
-   (Hover transforms that preserve back rotation)
 =========================== */
 
 /* GPU-accelerated transforms */
@@ -293,18 +281,13 @@ body {
 /* Slight perspective for the card container */
 .cards-section { perspective: 1400px; }
 
-/* Smooth transitions for ambient glow already defined above */
-
 /* Lift the whole card and deepen shadow on hover */
 .cards-section:hover .flip-card {
   transform: translateY(-12px);
   box-shadow: 0 26px 48px rgba(0, 40, 120, 0.18), 0 0 0 6px rgba(0, 67, 206, 0.06);
 }
 
-/* Micro-scale front/back while preserving rotation:
-   - front: scale only
-   - back: keep rotateY(180deg) and scale
-*/
+/* Micro-scale front/back while preserving rotation */
 .cards-section:hover .flip-front {
   transform: rotateY(0deg) scale(0.996);
   transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
