@@ -42,12 +42,17 @@
     --h2-color: #9ec7ff;
     --h3-color: #9fbfe8;
   }
-.flip -front img {
-  border: 4px solid yellowgreen;
-  box-shadow: 0 10px 30px rgba(133, 196, 56, 0.421);
-}}
 
-/* GLOBAL RESET + BASE */
+  /* Dark mode image styles */
+  .flip-front img {
+    border: 4px solid yellowgreen;
+    box-shadow: 0 10px 30px rgba(133, 196, 56, 0.7);
+  }
+}
+
+/* ===========================
+   GLOBAL RESET + BASE
+=========================== */
 * {
   margin: 0;
   padding: 0;
@@ -89,7 +94,7 @@ body::after {
 }
 
 /* ===========================
-   HERO
+   HERO (header)
 =========================== */
 .hero {
   position: relative;
@@ -157,61 +162,7 @@ body::after {
 }
 
 /* ===========================
-   TIMELINE CONTROLS
-=========================== */
-.timeline-controls {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1.25rem 2rem 2.5rem;
-  box-sizing: border-box;
-  align-items: center;
-  z-index: 5;
-}
-
-.timeline-btn {
-  background: white;
-  border: 1px solid var(--card-border-color);
-  color: var(--accent);
-  font-size: 1.6rem;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 6px 16px var(--card-shadow-color);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, opacity 0.18s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timeline-btn:hover:not([disabled]) {
-  transform: translateY(-3px);
-  background: #e8f0ff;
-  box-shadow: 0 12px 24px rgba(0, 40, 120, 0.12);
-}
-
-.timeline-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 6px var(--focus-ring);
-}
-
-.timeline-btn[disabled] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-@media (max-width: 768px) {
-  .timeline-controls {
-    display: none;
-  }
-}
-
-/* ===========================
-   TIMELINE WRAPPER
+   TIMELINE (main)
 =========================== */
 .timeline {
   display: flex;
@@ -288,14 +239,51 @@ body::after {
   transform: scale(1);
 }
 
+.cards-section:hover .flip-card {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 40, 120, 0.12), 0 0 0 6px rgba(0, 67, 206, 0.05);
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease;
+}
+
+.cards-section:hover .flip-front {
+  transform: rotateY(0deg) scale(0.998);
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cards-section:hover .flip-back {
+  transform: rotateY(180deg) scale(0.998);
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cards-section:hover .flip-front img {
+  transform: translateY(18px) scale(1.015);
+}
+
+.cards-section:focus-within .flip-card,
+.flip-card:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.12);
+}
+
 /* ===========================
-   TRUE 3D FLIP CARD
+   FLIP CARD
 =========================== */
 .flip-card {
   perspective: 1200px;
   width: 100%;
   height: var(--card-height);
   position: relative;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease;
+  will-change: transform, box-shadow;
+}
+
+.flip-card:hover .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card:active {
+  transform: translateY(-6px) scale(0.998);
+  transition: transform 0.12s ease;
 }
 
 .flip-inner {
@@ -306,10 +294,9 @@ body::after {
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.flip-card:hover .flip-inner {
-  transform: rotateY(180deg);
-}
-
+/* ===========================
+   FLIP FRONT & BACK
+=========================== */
 .flip-front,
 .flip-back {
   position: absolute;
@@ -346,45 +333,8 @@ body::after {
   padding: 1.75rem;
 }
 
-.flip-front img {
-  width: 70%;
-  border-radius: 10px;
-  margin-top: 40px;
-  object-fit: cover;
-  height: 220px;
-  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1), filter 0.28s ease;
-  filter: brightness(0.96) contrast(0.98);
-  transform: translateY(0);
-  border: 4px solid yellowgreen;
-  box-shadow: 0 10px 30px rgba(133, 196, 56, 0.421);
-}
-
-.flip-front h2 {
-  font-size: clamp(1.25rem, 2.4vw, 3rem);
-  font-weight: 700;
-  color: var(--h2-color);
-  margin: 0;
-}
-
-.flip-front h3 {
-  font-size: clamp(0.95rem, 1.4vw, 2rem);
-  font-weight: 600;
-  text-align: center;
-  color: var(--h3-color);
-  margin: 0;
-}
-
-.flip-back p {
-  font-size: var(--p-size);
-  color: var(--page-text);
-  line-height: var(--p-line-height);
-  padding: 0 0.5rem;
-  max-width: 40ch;
-  margin: 0 auto;
-}
-
 /* ===========================
-   TITLE FRAME
+   TITLE FRAME (inside flip-front)
 =========================== */
 .flip-front .title-frame {
   display: inline-flex;
@@ -427,49 +377,114 @@ body::after {
   outline: none;
 }
 
+/* H2 inside title-frame */
+.flip-front h2 {
+  font-size: clamp(1.25rem, 2.4vw, 3rem);
+  font-weight: 700;
+  color: var(--h2-color);
+  margin: 0;
+}
+
+/* H3 below title-frame */
+.flip-front h3 {
+  font-size: clamp(0.95rem, 1.4vw, 2rem);
+  font-weight: 600;
+  text-align: center;
+  color: var(--h3-color);
+  margin: 0;
+}
+
+/* IMG inside flip-front */
+.flip-front img {
+  width: 70%;
+  border-radius: 10px;
+  margin-top: 40px;
+  object-fit: cover;
+  height: 220px;
+  transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1), filter 0.28s ease;
+  filter: brightness(0.96) contrast(0.98);
+  transform: translateY(0);
+  border: 4px solid yellowgreen;
+  box-shadow: 0 10px 30px rgba(133, 196, 56, 0.421);
+}
+
+/* P inside flip-back */
+.flip-back p {
+  font-size: var(--p-size);
+  color: var(--page-text);
+  line-height: var(--p-line-height);
+  padding: 0 0.5rem;
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
 /* ===========================
-   VARIANT A HOVER (subtle)
+   TIMELINE CONTROLS (after main)
 =========================== */
-.flip-card {
-  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease;
-  will-change: transform, box-shadow;
+.timeline-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem 2rem 2.5rem;
+  box-sizing: border-box;
+  align-items: center;
+  z-index: 5;
 }
 
-.cards-section:hover .flip-card {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 40, 120, 0.12), 0 0 0 6px rgba(0, 67, 206, 0.05);
-  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s ease;
+.timeline-btn {
+  background: white;
+  border: 1px solid var(--card-border-color);
+  color: var(--accent);
+  font-size: 1.6rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 6px 16px var(--card-shadow-color);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, opacity 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.cards-section:hover .flip-front {
-  transform: rotateY(0deg) scale(0.998);
-  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+.timeline-btn:hover:not([disabled]) {
+  transform: translateY(-3px);
+  background: #e8f0ff;
+  box-shadow: 0 12px 24px rgba(0, 40, 120, 0.12);
 }
 
-.cards-section:hover .flip-back {
-  transform: rotateY(180deg) scale(0.998);
-  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cards-section:hover .flip-front img {
-  transform: translateY(18px) scale(1.015);
-}
-
-.flip-card:active {
-  transform: translateY(-6px) scale(0.998);
-  transition: transform 0.12s ease;
-}
-
-.cards-section:focus-within .flip-card,
-.flip-card:focus-within {
+.timeline-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.12);
+  box-shadow: 0 0 0 6px var(--focus-ring);
+}
+
+.timeline-btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.95rem;
+  color: var(--page-text);
+  opacity: 0.8;
 }
 
 /* ===========================
    RESPONSIVE & ACCESSIBILITY
 =========================== */
 @media (max-width: 768px) {
+  .timeline-controls {
+    display: none;
+  }
+
   .timeline {
     flex-direction: column;
     overflow-x: visible;
@@ -482,8 +497,18 @@ body::after {
     perspective: 1000px;
   }
 
-  .timeline-controls {
-    display: none;
+  .cards-section:hover .flip-card {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 40, 120, 0.10);
+  }
+
+  .cards-section:hover .flip-front img {
+    transform: none !important;
+  }
+
+  .cards-section:hover .flip-front h2,
+  .cards-section:hover .flip-front h3 {
+    transform: none !important;
   }
 
   .hero-logo {
@@ -502,23 +527,17 @@ body::after {
     height: 180px;
     transform: translateY(4px);
   }
-
-  .cards-section:hover .flip-card {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(0, 40, 120, 0.10);
-  }
-
-  .cards-section:hover .flip-front img {
-    transform: none !important;
-  }
-
-  .cards-section:hover .flip-front h2,
-  .cards-section:hover .flip-front h3 {
-    transform: none !important;
-  }
 }
 
 @media (max-width: 420px) {
+  :root {
+    --p-size: var(--p-size-mobile);
+  }
+
+  .flip-front { 
+    padding: 1rem; 
+  }
+
   .flip-front .title-frame {
     padding: 0.4rem 0.6rem;
     border-radius: 8px;
@@ -530,53 +549,15 @@ body::after {
     transform: translateY(4px);
   }
 
-  @media (max-width: 420px) {
-    :root {
-      --p-size: var(--p-size-mobile);
-    }
-
-    .flip-front { 
-      padding: 1rem; 
-    }
-
-    .flip-back p {
-      max-width: 60ch;
-    }
+  .flip-back p {
+    max-width: 60ch;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-  .flip-card,
-  .flip-inner,
-  .flip-front img,
-  .flip-front h2,
-  .flip-front h3 {
-    transition: none !important;
-    transform: none !important;
-  }
-
-  .flip-front .title-frame { transition: none !important; }
-
-  body p, .flip-back p { transition: none !important; }
-}
-
-/* ===========================
-   FOOTER
-=========================== */
-.footer {
-  text-align: center;
-  padding: 2rem;
-  font-size: 0.95rem;
-  color: var(--page-text);
-  opacity: 0.8;
 }
 
 /* ============================================
    320px–360px Ultra‑Small Mobile Enhancements
 ============================================ */
 @media (max-width: 360px) {
-
   :root {
     --card-width: 100%;
     --gap: 16px;
@@ -657,5 +638,28 @@ body::after {
     font-size: 0.95rem;
     line-height: 1.5;
     max-width: 32ch;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+=========================== */
+@media (prefers-reduced-motion: reduce) {
+  .flip-card,
+  .flip-inner,
+  .flip-front img,
+  .flip-front h2,
+  .flip-front h3 {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .flip-front .title-frame { 
+    transition: none !important; 
+  }
+
+  body p, 
+  .flip-back p { 
+    transition: none !important; 
   }
 }
