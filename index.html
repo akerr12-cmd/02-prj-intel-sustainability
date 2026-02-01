@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,6 +28,12 @@
     </div>
   </header>
 
+  <!-- TIMELINE CONTROLS (place above the timeline) -->
+  <div class="timeline-controls" aria-hidden="false">
+    <button class="timeline-btn left-btn" aria-label="Scroll left">‹</button>
+    <button class="timeline-btn right-btn" aria-label="Scroll right">›</button>
+  </div>
+
   <!-- TIMELINE -->
   <main class="timeline">
     <!-- Card 1 -->
@@ -47,6 +52,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 2 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -63,6 +69,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 3 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -79,6 +86,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 4 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -95,6 +103,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 5 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -112,6 +121,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 6 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -128,7 +138,8 @@
         </div>
       </div>
     </section>
-    <!-- Card 7-->
+
+    <!-- Card 7 -->
     <section class="cards-section">
       <div class="flip-card">
         <div class="flip-inner">
@@ -144,6 +155,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 8 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -160,6 +172,7 @@
         </div>
       </div>
     </section>
+
     <!-- Card 9 -->
     <section class="cards-section">
       <div class="flip-card">
@@ -176,59 +189,79 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="footer">
     <p>Scroll to view timeline • Hover over cards to learn more</p>
   </footer>
 
-  <!-- Scroll Reveal Script -->
+  <!-- Combined scripts: scroll reveal, indicator, and arrow controls -->
   <script>
-    const cards = document.querySelectorAll('.cards-section');
+    // Scroll reveal observer
+    (function () {
+      const cards = document.querySelectorAll('.cards-section');
+      if (!cards || cards.length === 0) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      cards.forEach(card => observer.observe(card));
+    })();
+
+    // Timeline controls, indicator, and keyboard navigation
+    (function () {
+      const timelineEl = document.querySelector('.timeline');
+      if (!timelineEl) return;
+
+      const leftBtn = document.querySelector('.left-btn');
+      const rightBtn = document.querySelector('.right-btn');
+
+      // Ensure these match your CSS values: card width + gap
+      const CARD_WIDTH = 320;
+      const GAP = 32;
+      const STEP = CARD_WIDTH + GAP;
+
+      if (leftBtn) {
+        leftBtn.addEventListener('click', () => {
+          timelineEl.scrollBy({ left: -STEP, behavior: 'smooth' });
+        });
+      }
+
+      if (rightBtn) {
+        rightBtn.addEventListener('click', () => {
+          timelineEl.scrollBy({ left: STEP, behavior: 'smooth' });
+        });
+      }
+
+      function updateIndicator() {
+        const maxScroll = Math.max(1, timelineEl.scrollWidth - timelineEl.clientWidth);
+        const progress = timelineEl.scrollLeft / maxScroll;
+        const indicatorWidth = 80;
+        const trackWidth = Math.max(0, timelineEl.clientWidth - indicatorWidth);
+        const x = progress * trackWidth;
+        timelineEl.style.setProperty('--indicator-x', `${x}px`);
+      }
+
+      timelineEl.addEventListener('scroll', updateIndicator);
+      window.addEventListener('resize', updateIndicator);
+      updateIndicator();
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          timelineEl.scrollBy({ left: STEP, behavior: 'smooth' });
+        } else if (e.key === 'ArrowLeft') {
+          timelineEl.scrollBy({ left: -STEP, behavior: 'smooth' });
         }
       });
-    }, { threshold: 0.3 });
-
-    cards.forEach(card => observer.observe(card));
+    })();
   </script>
-  <script>
-    const timeline = document.querySelector('.timeline');
-    const indicator = document.querySelector('.timeline::after'); // pseudo-element can't be selected directly
-
-    timeline.addEventListener('scroll', () => {
-      const maxScroll = timeline.scrollWidth - timeline.clientWidth;
-      const progress = timeline.scrollLeft / maxScroll;
-      const indicatorWidth = 80;
-      const trackWidth = timeline.clientWidth - indicatorWidth;
-
-      timeline.style.setProperty('--indicator-x', progress * trackWidth + 'px');
-    });
-  </script>
-
-  <script>
-    const timeline = document.querySelector('.timeline');
-    const leftBtn = document.querySelector('.left-btn');
-    const rightBtn = document.querySelector('.right-btn');
-
-    const cardWidth = 320 + 32; // card width + gap
-
-    leftBtn.addEventListener('click', () => {
-      timeline.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-    });
-
-    rightBtn.addEventListener('click', () => {
-      timeline.scrollBy({ left: cardWidth, behavior: 'smooth' });
-    });
-  </script>
-
 
 </body>
-
 </html>

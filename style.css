@@ -142,23 +142,6 @@ body {
   position: relative;
 }
 
-.timeline {
-  position: relative;
-}
-
-.timeline::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  height: 3px;
-  width: 80px;
-  background: #0068b5;
-  border-radius: 2px;
-  transition: transform 0.4s ease;
-}
-
-
 /* Top fade shadow */
 .timeline::before {
   content: "";
@@ -169,6 +152,22 @@ body {
   height: 40px;
   background: linear-gradient(to bottom, rgba(0,0,0,0.08), transparent);
   pointer-events: none;
+}
+
+/* Optional visual indicator under the timeline */
+.timeline::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  height: 3px;
+  width: 80px;
+  background: #0068b5;
+  border-radius: 2px;
+  transform: translateX(var(--indicator-x, 0));
+  transition: transform 0.12s linear;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .timeline::-webkit-scrollbar {
@@ -329,7 +328,19 @@ body {
   }
 
   .timeline-controls {
-    display: none; /* hide arrows on mobile */
+    display: none;
+  }
+
+  .hero-logo {
+    width: 320px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
   }
 }
 
