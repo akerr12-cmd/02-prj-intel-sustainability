@@ -1,68 +1,85 @@
 
+/* CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 /* ----------------------------------------
    HERO BASE
 -----------------------------------------*/
 .hero {
   position: relative;
   width: 100%;
-  min-height: 70vh;
-  padding: 6rem 2rem;
+  min-height: 55vh;
+  padding: 4rem 2rem;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end; /* changed from flex-start to flex-end this moved it from the top to the bottom */
   justify-content: flex-start;
+  background: linear-gradient(
+    135deg,
+    #0068b5 0%,
+    #0f6fb8 40%,
+    #3aa0e6 100%
+  );
   overflow: hidden;
   color: white;
 }
 
-/* Move gradient to ::before pseudo-element */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    #0072CE 0%,
-    #127CC1 40%,
-    #4FB3FF 100%
-  );
-  z-index: 0;
-}
-
 /* ----------------------------------------
-   MICRO-PROCESSOR CIRCUIT TEXTURE
+   CURVED SEMICONDUCTOR TRACE OVERLAY
 -----------------------------------------*/
 .circuit-overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1; /* Sits above gradient, below content */
+  z-index: 1;
+  opacity: 0.50;
 
-  opacity: 0.22;
-
-  background-image:
-    linear-gradient(
-      rgba(255,255,255,0.12) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,0.12) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle 3px,
-      rgba(255,255,255,0.18) 40%,
-      transparent 45%
-    );
-
-  background-size:
-    90px 90px,
-    90px 90px,
-    180px 180px;
-
-  transform: rotate(2deg);
+  background-image: url(curved-traces.svg); /* created and svg file */
+  background-size: cover;
+  background-position: center;
 }
-
 
 /* ----------------------------------------
    CONTENT
@@ -70,25 +87,25 @@
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .hero-logo {
-  width: 140px;
-  margin-bottom: 2rem;
+  width: 600px;
+  margin-bottom: 1.5rem;
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 3.4rem;
   font-weight: 700;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   line-height: 1.1;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 300;
-  max-width: 480px;
+  max-width: 600px;
   opacity: 0.9;
 }
 

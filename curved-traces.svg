@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <path d="M100 200 C300 50, 500 350, 700 200 S1100 350, 900 500"
+        stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/>
+  <path d="M200 500 C350 650, 600 650, 750 500"
+        stroke="rgba(255,255,255,0.18)" stroke-width="1.5" fill="none"/>
+  <circle cx="700" cy="200" r="6" fill="rgba(255,255,255,0.25)"/>
+  <circle cx="900" cy="500" r="5" fill="rgba(255,255,255,0.18)"/>
+  <circle cx="200" cy="500" r="4" fill="rgba(255,255,255,0.18)"/>
+</svg>
