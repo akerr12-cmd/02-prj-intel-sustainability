@@ -236,14 +236,8 @@
 
   <!-- Combined scripts: scroll reveal, indicator, and arrow controls -->
   <script>
-    /* Combined script: scroll reveal + arrow controls + keyboard navigation
-       - Removes indicator logic (no CSS variable used)
-       - Computes STEP from first card width + gap
-       - Disables buttons at ends
-       - Debounces resize updates
-    */
-
     // ---------- Scroll reveal (IntersectionObserver) ----------
+    // Reveal cards when they enter viewport
     (function () {
       const cards = document.querySelectorAll('.cards-section');
       if (!cards || cards.length === 0) return;
@@ -261,6 +255,7 @@
     })();
 
     // ---------- Timeline controls and keyboard navigation ----------
+    // Horizontal scroll buttons and keyboard navigation
     (function () {
       const timelineEl = document.querySelector('.timeline');
       if (!timelineEl) return;

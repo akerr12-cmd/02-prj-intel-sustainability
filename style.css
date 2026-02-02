@@ -21,7 +21,7 @@
   --p-size-mobile: 1rem; /* mobile fallback */
 }
 
-/* Dark mode overrides for variables */
+/* Dark mode overrides for variables (activated when user prefers dark mode) */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-1: #071428;
@@ -37,20 +37,21 @@
     --h3-color: #9fbfe8;
   }
 
-  /* Dark mode image styles */
+  /* Dark mode image styles (activated when user prefers dark mode) */
   .flip-front img {
     border: 4px solid yellowgreen;
     box-shadow: 0 10px 30px rgba(133, 196, 56, 0.7);
   }
 }
 
-/* GLOBAL RESET + BASE */
+/* GLOBAL RESET (removes all default browser spacing and makes element sizing predictable so the layout behaves consistently across browsers) */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Base styles */
 html,
 body {
   height: 100%;
@@ -98,7 +99,7 @@ body::after {
   color: white;
   overflow: hidden;
 }
-
+/* places a full overlay gradient on top of the hero background for depth */
 .hero::before {
   content: "";
   position: absolute;
@@ -151,7 +152,7 @@ body::after {
   font-family: "intel-clear", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* TIMELINE (main) */
+/* TIMELINE (main) (turns the timeline into a smooth, horizontally scrollable container) */
 .timeline {
   display: flex;
   gap: 2rem;
@@ -187,7 +188,7 @@ body::after {
   background: #e9eef8;
 }
 
-/* CARD SECTIONS */
+/* CARD SECTIONS (each card section is a flex item with fixed width, snap alignment, and initial hidden state for animation) */
 .cards-section {
   flex: 0 0 var(--card-width);
   scroll-snap-align: center;
@@ -251,7 +252,7 @@ body::after {
   box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.12);
 }
 
-/* FLIP CARD */
+/* FLIP CARD (adjusted height for smaller screens) */
 .flip-card {
   perspective: 1200px;
   width: 100%;
@@ -449,7 +450,7 @@ body::after {
 .footer {
   text-align: center;
   padding: 2rem;
-  font-size: 2rem;
+  font-size: 2rem; /*increased size for better readability*/
   color: var(--page-text);
   opacity: 0.8;
 }
@@ -522,7 +523,7 @@ body::after {
   }
 
   .footer {
-    font-size: 0.85rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -557,18 +558,21 @@ body::after {
 
 
 /* 320px–360px Ultra‑Small Mobile Enhancements */
+/* targeting devices like Samsung Galaxy Flip, iPhone SE, etc. */
 @media (max-width: 360px) {
+  /* shrinks the global layout spacing and card width */
   :root {
     --card-width: 100%;
     --gap: 16px;
     --p-size: var(--p-size-mobile);
   }
 
+  /* Prevents horizontal scrolling */
   body {
     overflow-x: hidden;
   }
 
-  /* HERO */
+  /* HERO (compression so the it doesn't dominate the screen) */
   .hero {
     padding: 2rem 1rem;
     min-height: 48vh;
@@ -589,7 +593,7 @@ body::after {
     max-width: 90%;
   }
 
-  /* TIMELINE */
+  /* TIMELINE (less padding, smaller gaps, no horizontal overflow) */
   .timeline {
     padding: 1.5rem 0.75rem;
     gap: 1.5rem;
@@ -602,7 +606,7 @@ body::after {
     padding-right: 0.25rem;
   }
 
-  /* FLIP CARD */
+  /* FLIP CARD (adjusted height for smaller screens) */
   .flip-card {
     height: 380px;
   }
@@ -618,7 +622,7 @@ body::after {
     border-radius: 8px;
   }
 
-  /* TITLE FRAME */
+  /* TITLE FRAME (everything shrinks proportionally) */
   .flip-front .title-frame {
     padding: 0.35rem 0.5rem;
     border-radius: 8px;
@@ -633,7 +637,7 @@ body::after {
     font-size: 0.85rem;
   }
 
-  /* BACK TEXT */
+  /* BACK TEXT (adjusted for smaller screens) */
   .flip-back p {
     font-size: 0.95rem;
     line-height: 1.5;
@@ -645,7 +649,7 @@ body::after {
   }
 }
 
-/* ACCESSIBILITY */
+/* ACCESSIBILITY (disables all animations, transitions, and motion effects for users who have enabled "reduce motion" in their device) */
 @media (prefers-reduced-motion: reduce) {
   .flip-card,
   .flip-inner,
