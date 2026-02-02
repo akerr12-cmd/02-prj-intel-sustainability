@@ -449,7 +449,7 @@ body::after {
 .footer {
   text-align: center;
   padding: 2rem;
-  font-size: 0.95rem;
+  font-size: 2rem;
   color: var(--page-text);
   opacity: 0.8;
 }
