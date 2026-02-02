@@ -444,9 +444,8 @@ body::after {
   box-shadow: none;
 }
 
-/* ===========================
-   FOOTER
-=========================== */
+
+/* FOOTER */
 .footer {
   text-align: center;
   padding: 2rem;
@@ -455,9 +454,21 @@ body::after {
   opacity: 0.8;
 }
 
-/* ===========================
-   RESPONSIVE & ACCESSIBILITY
-=========================== */
+/* Footer text swap */
+.footer-mobile {
+  display: none;
+}
+
+@media (max-width: 420px) {
+  .footer-desktop {
+    display: none;
+  }
+  .footer-mobile {
+    display: inline;
+  }
+}
+
+/* RESPONSIVE & ACCESSIBILITY */
 @media (max-width: 768px) {
   .timeline-controls {
     display: none;
@@ -501,9 +512,17 @@ body::after {
     font-size: 1.05rem;
   }
 
+  .flip-card {
+  height: 420px; /* adjusts the height of the flip card */
+}
+
   .flip-front img {
     height: 180px;
     transform: translateY(4px);
+  }
+
+  .footer {
+    font-size: 0.85rem;
   }
 }
 
@@ -530,11 +549,14 @@ body::after {
   .flip-back p {
     max-width: 60ch;
   }
+
+  .footer {
+    font-size: 1.5rem;
+  }
 }
 
-/* ============================================
-   320px–360px Ultra‑Small Mobile Enhancements
-============================================ */
+
+/* 320px–360px Ultra‑Small Mobile Enhancements */
 @media (max-width: 360px) {
   :root {
     --card-width: 100%;
@@ -617,11 +639,13 @@ body::after {
     line-height: 1.5;
     max-width: 32ch;
   }
+
+  .footer {
+    font-size: 1rem;
+  }
 }
 
-/* ===========================
-   ACCESSIBILITY
-=========================== */
+/* ACCESSIBILITY */
 @media (prefers-reduced-motion: reduce) {
   .flip-card,
   .flip-inner,
