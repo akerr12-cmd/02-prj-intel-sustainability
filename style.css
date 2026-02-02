@@ -1,10 +1,4 @@
-/* ===========================
-   Complete style.css
-=========================== */
-
-/* ===========================
-   VARIABLES
-=========================== */
+/* VARIABLES */
 :root {
   --bg-1: #eef3f9;
   --bg-2: #e6eef8;
@@ -50,9 +44,7 @@
   }
 }
 
-/* ===========================
-   GLOBAL RESET + BASE
-=========================== */
+/* GLOBAL RESET + BASE */
 * {
   margin: 0;
   padding: 0;
@@ -93,9 +85,7 @@ body::after {
   mix-blend-mode: multiply;
 }
 
-/* ===========================
-   HERO (header)
-=========================== */
+/* HERO (header) */
 .hero {
   position: relative;
   width: 100%;
@@ -161,9 +151,7 @@ body::after {
   font-family: "intel-clear", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* ===========================
-   TIMELINE (main)
-=========================== */
+/* TIMELINE (main) */
 .timeline {
   display: flex;
   gap: 2rem;
@@ -199,9 +187,7 @@ body::after {
   background: #e9eef8;
 }
 
-/* ===========================
-   CARD SECTIONS
-=========================== */
+/* CARD SECTIONS */
 .cards-section {
   flex: 0 0 var(--card-width);
   scroll-snap-align: center;
@@ -265,9 +251,7 @@ body::after {
   box-shadow: 0 0 0 6px rgba(0, 102, 255, 0.12);
 }
 
-/* ===========================
-   FLIP CARD
-=========================== */
+/* FLIP CARD */
 .flip-card {
   perspective: 1200px;
   width: 100%;
@@ -294,9 +278,7 @@ body::after {
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ===========================
-   FLIP FRONT & BACK
-=========================== */
+/* FLIP FRONT & BACK */
 .flip-front,
 .flip-back {
   position: absolute;
@@ -333,9 +315,7 @@ body::after {
   padding: 1.75rem;
 }
 
-/* ===========================
-   TITLE FRAME (inside flip-front)
-=========================== */
+/* TITLE FRAME (inside flip-front) */
 .flip-front .title-frame {
   display: inline-flex;
   flex-direction: column;
@@ -379,7 +359,7 @@ body::after {
 
 /* H2 inside title-frame */
 .flip-front h2 {
-  font-size: clamp(2.5rem, 2.4vw, 3rem);
+  font-size: clamp(2.5rem, 2.4vw, 3rem); /* changed min/max to be readable */
   font-weight: 700;
   color: var(--h2-color);
   margin: 0;
@@ -387,7 +367,7 @@ body::after {
 
 /* H3 below title-frame */
 .flip-front h3 {
-  font-size: clamp(28px, 1.4vw, 28px);
+  font-size: clamp(28px, 1.4vw, 28px); /* changed min/max to be readable */
   font-weight: 600;
   text-align: center;
   color: var(--h3-color);
@@ -396,7 +376,7 @@ body::after {
 
 /* IMG inside flip-front */
 .flip-front img {
-  width: 70%;
+  width: 70%; /* changed to smaller % to fit smaller screens */
   border-radius: 10px;
   margin-top: 40px;
   object-fit: cover;
@@ -404,7 +384,7 @@ body::after {
   transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1), filter 0.28s ease;
   filter: brightness(0.96) contrast(0.98);
   transform: translateY(0);
-  border: 4px solid yellowgreen;
+  border: 4px solid yellowgreen; /* added for contrast and visibility */
   box-shadow: 0 10px 30px rgba(133, 196, 56, 0.421);
 }
 
@@ -418,9 +398,7 @@ body::after {
   margin: 0 auto;
 }
 
-/* ===========================
-   TIMELINE CONTROLS (after main)
-=========================== */
+/* TIMELINE CONTROLS (after main) */
 .timeline-controls {
   width: 100%;
   display: flex;
